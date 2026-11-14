@@ -1,0 +1,10 @@
+# Local documentation
+/docs/
+
+# .NET build output
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio settings
+.vs/
+*.user
