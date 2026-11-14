@@ -9,6 +9,11 @@
         Height="450"
         Width="800">
     <Grid>
-
+        <Button Content="Change title"
+                Command="{Binding ChangeTitleCommand}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="120"
+                Height="40"/>
     </Grid>
 </Window>
