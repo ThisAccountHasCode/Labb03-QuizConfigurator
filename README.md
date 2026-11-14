@@ -25,13 +25,6 @@ dotnet run --project "Labb03 - Quiz Configurator.csproj"
 
 För VG krävs även välorganiserad, lättläst och utbyggbar kod samt självständiga, välgrundade tekniska val. Helskärmsläge är valfritt.
 
-### Tekniska lösningar och problemlösning
-
-Fyll i under utvecklingen med faktiska exempel inför inlämningen:
-
-- **Viktiga tekniska lösningar:** Beskriv kort några val, hur de fungerar och varför de gjordes.
-- **Problem:** Vad gick fel? Hur felsöktes det och hur löstes det?
-
 ### Inlämning
 
 Arbeta individuellt och versionshantera projektet i ett nytt GitHub-repository. Gör minst 10 regelbundna commits med beskrivande meddelanden och lämna in länken till repot i en kommentar på itslearning.
@@ -62,13 +55,6 @@ dotnet run --project "Labb03 - Quiz Configurator.csproj"
 - [ ] Test the main features and check usability and error handling, especially for asynchronous operations.
 
 VG also requires well-organized, readable and maintainable code, as well as independent, well-reasoned technical choices. Full-screen mode is optional.
-
-### Technical solutions and problem solving
-
-Fill this in during development with real examples before submission:
-
-- **Key technical solutions:** Briefly describe several choices, how they work and why they were made.
-- **Problem:** What went wrong? How was it investigated and resolved?
 
 ### Submission
 
