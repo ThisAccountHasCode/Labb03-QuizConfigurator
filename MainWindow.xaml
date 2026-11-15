@@ -21,10 +21,18 @@
                    Margin="0,20,0,0"
                    FontSize="24"/>
         <ListBox ItemsSource="{Binding CurrentPack.Questions}"
+                 SelectedItem="{Binding SelectedQuestion}"
                  DisplayMemberPath="Text"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center"
                  Width="400"
                  Height="200"/>
+        <ListBox ItemsSource="{Binding SelectedQuestion.Answers}"
+                 DisplayMemberPath="Text"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Bottom"
+                 Margin="0,0,0,20"
+                 Width="400"
+                 Height="100"/>
     </Grid>
 </Window>

@@ -51,4 +51,15 @@ public class MainViewModel : INotifyPropertyChanged
         samplePack.Questions.Add(question);
         return samplePack;
     }
+
+    private Question? _selectedQuestion;
+    public Question? SelectedQuestion
+    {
+        get => _selectedQuestion;
+        set
+        {
+            _selectedQuestion = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedQuestion)));
+        }
+    }
 }
