@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Windows.Input;
+using Labb03___Quiz_Configurator.Models;
 
 namespace Labb03___Quiz_Configurator.ViewModels;
 
@@ -11,12 +12,16 @@ public class MainViewModel : INotifyPropertyChanged
         {
             Title = "New Title";
         });
+
+        CurrentPack = CreateSamplePack();
     }
 
+    public QuizPack CurrentPack { get; }
+
     public ICommand ChangeTitleCommand { get; }
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     private string _title = "Quiz Configurator";
-
     public string Title
     {
         get => _title;
@@ -27,6 +32,23 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    private QuizPack CreateSamplePack()
+    {
+        QuizPack samplePack = new() { Name = "Geography" };
 
+        Question question = new()
+        {
+            Text = "What is the capital of France?",
+            Difficulty = Difficulty.Easy,
+            Answers =
+            [
+                new Answer { Text = "Paris", IsCorrect = true },
+                new Answer { Text = "London", IsCorrect = false },
+                new Answer { Text = "Berlin", IsCorrect = false },
+                new Answer { Text = "Madrid", IsCorrect = false }
+            ]
+        };
+        samplePack.Questions.Add(question);
+        return samplePack;
+    }
 }

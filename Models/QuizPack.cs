@@ -7,4 +7,6 @@ public class QuizPack
     public Difficulty Difficulty { get; set; } = Difficulty.Easy;
 
     public int TimeLimitSeconds { get; set; } = 30;
+
+    public List<Question> Questions { get; set; } = [];
 }

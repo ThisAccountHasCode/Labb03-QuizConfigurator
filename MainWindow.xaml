@@ -15,5 +15,16 @@
                 VerticalAlignment="Center"
                 Width="120"
                 Height="40"/>
+        <TextBlock Text="{Binding CurrentPack.Name}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="0,20,0,0"
+                   FontSize="24"/>
+        <ListBox ItemsSource="{Binding CurrentPack.Questions}"
+                 DisplayMemberPath="Text"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Width="400"
+                 Height="200"/>
     </Grid>
 </Window>
