@@ -25,6 +25,10 @@ dotnet run --project "Labb03 - Quiz Configurator.csproj"
 
 För VG krävs även välorganiserad, lättläst och utbyggbar kod samt självständiga, välgrundade tekniska val. Helskärmsläge är valfritt.
 
+### Framtida förbättring
+
+- [ ] Vid en kodgranskning på användarens begäran uppmärksammade AI likhetskontrollen i `Question.Text`: överväg samma mönster för andra egenskaper som skickar `PropertyChanged`, så att de bara meddelar ändringar när värdet faktiskt ändras.
+
 ### Inlämning
 
 Arbeta individuellt och versionshantera projektet i ett nytt GitHub-repository. Gör minst 10 regelbundna commits med beskrivande meddelanden och lämna in länken till repot i en kommentar på itslearning.
@@ -55,6 +59,10 @@ dotnet run --project "Labb03 - Quiz Configurator.csproj"
 - [ ] Test the main features and check usability and error handling, especially for asynchronous operations.
 
 VG also requires well-organized, readable and maintainable code, as well as independent, well-reasoned technical choices. Full-screen mode is optional.
+
+### Future refinement
+
+- [ ] After a user-requested code review, AI highlighted the equality check in `Question.Text`: consider applying the same pattern to other properties that raise `PropertyChanged`, so they only notify when their value changes.
 
 ### Submission
 
