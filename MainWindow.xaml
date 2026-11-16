@@ -57,6 +57,14 @@
                 Width="90"
                 Height="20"
                 Grid.Column="0"/>
+        <!-- Edit Pack Button -->
+        <TextBox Text="{Binding SelectedPack.Name, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Top"
+                 Margin="20,335,0,0"
+                 Width="90"
+                 Height="20"
+                 Grid.Column="0"/>
         <!-- Selected Pack Text -->
         <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
                    HorizontalAlignment="Center"
