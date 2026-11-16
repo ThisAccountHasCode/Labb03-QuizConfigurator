@@ -39,6 +39,13 @@
                 Width="90"
                 Height="20"
                 Grid.Column="0"/>
+        <!-- Set Correct Answer Button -->
+        <Button Content="Set Correct Answer"
+                Command="{Binding SetCorrectAnswerCommand}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,295,0,0"
+                Grid.Column="1"/>
         <!-- Add Pack Button -->
         <Button Content="Add Pack"
                 Command="{Binding AddPackCommand}"

@@ -18,7 +18,19 @@ public class Answer : INotifyPropertyChanged
         }
     }
 
-    public bool IsCorrect { get; set; } = false;
+    private bool _isCorrect = false;
+    public bool IsCorrect
+    {
+        get => _isCorrect;
+        set
+        {
+            if (_isCorrect != value)
+            {
+                _isCorrect = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsCorrect)));
+            }
+        }
+    }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 }
