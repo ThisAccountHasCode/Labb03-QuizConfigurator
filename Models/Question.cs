@@ -14,9 +14,12 @@ public class Question : INotifyPropertyChanged
             {
                 _text = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasQuestionText)));
             }
         }
     }
+
+    public bool HasQuestionText => !string.IsNullOrEmpty(Text);
 
     public List<Answer> Answers { get; set; } = [];
 
