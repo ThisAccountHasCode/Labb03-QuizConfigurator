@@ -100,5 +100,12 @@
                  Width="360"
                  Height="100"
                  Grid.Column="1"/>
+        <!-- Time Limit Text -->
+        <TextBlock Text="{Binding SelectedPack.TimeLimitSeconds, StringFormat='Time Limit: {0} seconds'}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Bottom"
+                   Margin="0,0,0,40"
+                   FontSize="16"
+                   Grid.Column="1"/>
     </Grid>
 </Window>
