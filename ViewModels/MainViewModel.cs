@@ -94,6 +94,16 @@ public class MainViewModel : INotifyPropertyChanged
         SelectedQuestion = newQuestion;
     }
 
+    private void DeleteQuestion()
+    {
+        if (SelectedPack == null || SelectedQuestion == null)
+        {
+            return;
+        }
+        SelectedPack.Questions.Remove(SelectedQuestion);
+        SelectedQuestion = SelectedPack.Questions.FirstOrDefault();
+    }
+
     private void AddPack()
     {
         QuizPack newPack = new()
@@ -106,7 +116,7 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void DeletePack()
     {
-        if (SelectedPack == null)
+        if (SelectedPack == null || SelectedQuestion == null)
         {
             return;
         }
