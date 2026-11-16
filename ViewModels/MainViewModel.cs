@@ -13,6 +13,8 @@ public class MainViewModel : INotifyPropertyChanged
 
         AddPackCommand = new RelayCommand(AddPack);
 
+        DeletePackCommand = new RelayCommand(DeletePack);
+
         CurrentPack = CreateSamplePack();
 
         QuizPacks.Add(CurrentPack);
@@ -50,6 +52,8 @@ public class MainViewModel : INotifyPropertyChanged
 
     public ICommand AddPackCommand { get; }
 
+    public ICommand DeletePackCommand { get; }
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     private void AddQuestion()
@@ -73,6 +77,16 @@ public class MainViewModel : INotifyPropertyChanged
         };
         QuizPacks.Add(newPack);
         SelectedPack = newPack;
+    }
+
+    private void DeletePack()
+    {
+        if (SelectedPack == null)
+        {
+            return;
+        }
+        QuizPacks.Remove(SelectedPack);
+        SelectedPack = QuizPacks.FirstOrDefault();
     }
 
     private static QuizPack CreateSamplePack()  // This method creates a sample QuizPack with one question and its answers - It will be deleted
