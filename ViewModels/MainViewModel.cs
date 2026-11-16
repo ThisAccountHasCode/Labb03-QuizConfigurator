@@ -10,13 +10,9 @@ public class MainViewModel : INotifyPropertyChanged
     public MainViewModel()
     {
         AddQuestionCommand = new RelayCommand(AddQuestion);
-
         AddPackCommand = new RelayCommand(AddPack);
-
         DeletePackCommand = new RelayCommand(DeletePack);
-
         SetCorrectAnswerCommand = new RelayCommand(SetCorrectAnswer);
-
         DeleteQuestionCommand = new RelayCommand(DeleteQuestion);
 
         CurrentPack = CreateSamplePack();
@@ -26,10 +22,18 @@ public class MainViewModel : INotifyPropertyChanged
         SelectedPack = CurrentPack;
     }
 
+    // Commands
+    public ICommand AddQuestionCommand { get; }
+    public ICommand AddPackCommand { get; }
+    public ICommand DeletePackCommand { get; }
+    public ICommand SetCorrectAnswerCommand { get; }
+    public ICommand DeleteQuestionCommand { get; }
+
+    // Events
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     public QuizPack CurrentPack { get; }
-
     public ObservableCollection<QuizPack> QuizPacks { get; } = [];
-
     public Difficulty[] Difficulties { get; } = Enum.GetValues<Difficulty>();
 
     private QuizPack? _selectedPack;
@@ -65,17 +69,7 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public ICommand AddQuestionCommand { get; }
 
-    public ICommand AddPackCommand { get; }
-
-    public ICommand DeletePackCommand { get; }
-
-    public ICommand SetCorrectAnswerCommand { get; }
-
-    public ICommand DeleteQuestionCommand { get; }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
 
     private void AddQuestion()
     {
