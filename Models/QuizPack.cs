@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+
 namespace Labb03___Quiz_Configurator.Models;
 
 public class QuizPack
@@ -8,5 +10,5 @@ public class QuizPack
 
     public int TimeLimitSeconds { get; set; } = 30;
 
-    public List<Question> Questions { get; set; } = [];
+    public ObservableCollection<Question> Questions { get; set; } = [];
 }

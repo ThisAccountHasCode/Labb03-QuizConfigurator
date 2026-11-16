@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using Labb03___Quiz_Configurator.Models;
@@ -8,25 +9,29 @@ public class MainViewModel : INotifyPropertyChanged
 {
     public MainViewModel()
     {
-        ChangeTitleCommand = new RelayCommand(() =>
-        {
-            Title = "New Title";
-        });
+        AddQuestionCommand = new RelayCommand(AddQuestion);
+
+        AddPackCommand = new RelayCommand(AddPack);
 
         CurrentPack = CreateSamplePack();
+
+        QuizPacks.Add(CurrentPack);
+
+        SelectedPack = CurrentPack;
     }
 
     public QuizPack CurrentPack { get; }
 
-    private string _title = "Quiz Configurator";
+    public ObservableCollection<QuizPack> QuizPacks { get; } = [];
 
-    public string Title
+    private QuizPack? _selectedPack;
+    public QuizPack? SelectedPack
     {
-        get => _title;
+        get => _selectedPack;
         set
         {
-            _title = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
+            _selectedPack = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedPack)));
         }
     }
 
@@ -41,11 +46,36 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public ICommand ChangeTitleCommand { get; }
+    public ICommand AddQuestionCommand { get; }
+
+    public ICommand AddPackCommand { get; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    private static QuizPack CreateSamplePack()
+    private void AddQuestion()
+    {
+        if (SelectedPack == null)
+        {
+            return;
+        }
+        Question newQuestion = new()
+        {
+            Text = "New Question"
+        };
+        SelectedPack.Questions.Add(newQuestion);
+    }
+
+    private void AddPack()
+    {
+        QuizPack newPack = new()
+        {
+            Name = "New Pack"
+        };
+        QuizPacks.Add(newPack);
+        SelectedPack = newPack;
+    }
+
+    private static QuizPack CreateSamplePack()  // This method creates a sample QuizPack with one question and its answers - It will be deleted
     {
         QuizPack samplePack = new() { Name = "Geography" };
 
