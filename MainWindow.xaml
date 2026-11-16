@@ -91,12 +91,20 @@
                  Width="360"
                  Height="100"
                  Grid.Column="1"/>
+        <!-- Question Text -->
+        <TextBox Text="{Binding SelectedQuestion.Text, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Top"
+                 Width="360"
+                 Height="30"
+                 Margin="0,145,0,0"
+                 Grid.Column="1"/>
         <!-- Answer List -->
         <ListBox ItemsSource="{Binding SelectedQuestion.Answers}"
                  DisplayMemberPath="Text"
                  HorizontalAlignment="Center"
-                 VerticalAlignment="Center"
-                 Margin="0,0,0,0"
+                 VerticalAlignment="Top"
+                 Margin="0,185,0,0"
                  Width="360"
                  Height="100"
                  Grid.Column="1"/>
