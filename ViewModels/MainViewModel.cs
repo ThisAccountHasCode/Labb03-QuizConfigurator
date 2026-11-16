@@ -50,6 +50,17 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    private Answer? _selectedAnswer;
+    public Answer? SelectedAnswer
+    {
+        get => _selectedAnswer;
+        set
+        {
+            _selectedAnswer = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedAnswer)));
+        }
+    }
+
     public ICommand AddQuestionCommand { get; }
 
     public ICommand AddPackCommand { get; }
@@ -97,6 +108,19 @@ public class MainViewModel : INotifyPropertyChanged
         }
         QuizPacks.Remove(SelectedPack);
         SelectedPack = QuizPacks.FirstOrDefault();
+    }
+
+    private void SetCorrectAnswer()
+    {
+        if (SelectedQuestion == null || SelectedAnswer == null)
+        {
+            return;
+        }
+
+        foreach (var answer in SelectedQuestion.Answers)
+        {
+            answer.IsCorrect = false;
+        }
     }
 
     private static QuizPack CreateSamplePack()  // This method creates a sample QuizPack with one question and its answers - It will be deleted

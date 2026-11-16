@@ -101,6 +101,7 @@
                  Grid.Column="1"/>
         <!-- Answer List -->
         <ListBox ItemsSource="{Binding SelectedQuestion.Answers}"
+                 SelectedItem="{Binding SelectedAnswer}"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Margin="0,185,0,0"
