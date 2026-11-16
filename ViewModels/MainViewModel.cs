@@ -117,9 +117,14 @@ public class MainViewModel : INotifyPropertyChanged
             return;
         }
 
+        if (!SelectedQuestion.Answers.Contains(SelectedAnswer))
+        {
+            return;
+        }
+
         foreach (var answer in SelectedQuestion.Answers)
         {
-            answer.IsCorrect = false;
+            answer.IsCorrect = answer == SelectedAnswer;
         }
     }
 
