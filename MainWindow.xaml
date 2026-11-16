@@ -117,10 +117,30 @@
                  Grid.Column="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"
-                             Width="340"
-                             Height="20">
-                    </TextBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="300"
+                                 Height="20"
+                                 Margin="8,0,0,0">
+                        </TextBox>
+                        <TextBlock Text="✓"
+                                   Foreground="Green"
+                                   Margin="8,0,0,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsCorrect}"
+                                                     Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
