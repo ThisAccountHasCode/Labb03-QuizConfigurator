@@ -17,6 +17,8 @@ public class MainViewModel : INotifyPropertyChanged
 
         SetCorrectAnswerCommand = new RelayCommand(SetCorrectAnswer);
 
+        DeleteQuestionCommand = new RelayCommand(DeleteQuestion);
+
         CurrentPack = CreateSamplePack();
 
         QuizPacks.Add(CurrentPack);
@@ -70,6 +72,8 @@ public class MainViewModel : INotifyPropertyChanged
     public ICommand DeletePackCommand { get; }
 
     public ICommand SetCorrectAnswerCommand { get; }
+
+    public ICommand DeleteQuestionCommand { get; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
