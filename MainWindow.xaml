@@ -39,6 +39,14 @@
                 Width="90"
                 Height="20"
                 Grid.Column="0"/>
+        <!-- Delete Question Button -->
+        <Button Content="Delete Question"
+                Command="{Binding DeleteQuestionCommand}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="20,295,0,0"
+                Width="120"
+                Grid.Column="1"/>
         <!-- Set Correct Answer Button -->
         <Button Content="Set Correct Answer"
                 Command="{Binding SetCorrectAnswerCommand}"
