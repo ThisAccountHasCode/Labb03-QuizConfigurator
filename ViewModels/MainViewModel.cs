@@ -26,6 +26,8 @@ public class MainViewModel : INotifyPropertyChanged
 
     public ObservableCollection<QuizPack> QuizPacks { get; } = [];
 
+    public Difficulty[] Difficulties { get; } = Enum.GetValues<Difficulty>();
+
     private QuizPack? _selectedPack;
     public QuizPack? SelectedPack
     {

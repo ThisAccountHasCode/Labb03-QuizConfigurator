@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Labb03___Quiz_Configurator"
         mc:Ignorable="d"
         Title="Quiz Configurator"
-        Height="420"
+        Height="450"
         Width="760">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -65,6 +65,15 @@
                  Width="90"
                  Height="20"
                  Grid.Column="0"/>
+        <!-- Difficulty ComboBox -->
+        <ComboBox ItemsSource="{Binding Difficulties}"
+                  SelectedItem="{Binding SelectedPack.Difficulty, Mode=TwoWay}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  Margin="20,365,0,0"
+                  Width="90"
+                  Height="20"
+                  Grid.Column="0"/>
         <!-- Selected Pack Text -->
         <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
                    HorizontalAlignment="Center"
