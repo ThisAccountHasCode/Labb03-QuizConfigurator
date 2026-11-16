@@ -5,34 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Labb03___Quiz_Configurator"
         mc:Ignorable="d"
-        Title="{Binding Title}"
-        Height="450"
-        Width="800">
+        Title="Quiz Configurator"
+        Height="420"
+        Width="760">
     <Grid>
-        <Button Content="Change title"
-                Command="{Binding ChangeTitleCommand}"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Selected Pack Text -->
+        <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="20,10,0,0"
+                   FontSize="16"
+                   Grid.Column="0"/>
+        <!-- Quiz Pack List -->
+        <ListBox ItemsSource="{Binding QuizPacks}"
+                 SelectedItem="{Binding SelectedPack}"
+                 DisplayMemberPath="Name"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 Margin="20,40,0,0"
+                 Width="200"
+                 Height="200"
+                 Grid.Column="0"/>
+        <!-- Add Question Button -->
+        <Button Content="Add Question"
+                Command="{Binding AddQuestionCommand}"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Width="120"
-                Height="40"/>
-        <TextBlock Text="{Binding CurrentPack.Name}"
+                VerticalAlignment="Top"
+                Margin="20,245,0,0"
+                Width="90"
+                Height="20"
+                Grid.Column="0"/>
+        <!-- Selected Pack Text -->
+        <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
-                   Margin="0,20,0,0"
-                   FontSize="24"/>
-        <ListBox ItemsSource="{Binding CurrentPack.Questions}"
+                   Margin="0,0,0,0"
+                   FontSize="24"
+                   Grid.Column="1"/>
+        <!-- Question List -->
+        <ListBox ItemsSource="{Binding SelectedPack.Questions}"
                  SelectedItem="{Binding SelectedQuestion}"
                  DisplayMemberPath="Text"
                  HorizontalAlignment="Center"
-                 VerticalAlignment="Center"
-                 Width="400"
-                 Height="200"/>
+                 VerticalAlignment="Top"
+                 Margin="0,40,0,0"
+                 Width="360"
+                 Height="100"
+                 Grid.Column="1"/>
+        <!-- Answer List -->
         <ListBox ItemsSource="{Binding SelectedQuestion.Answers}"
                  DisplayMemberPath="Text"
                  HorizontalAlignment="Center"
-                 VerticalAlignment="Bottom"
-                 Margin="0,0,0,20"
-                 Width="400"
-                 Height="100"/>
+                 VerticalAlignment="Center"
+                 Margin="0,0,0,0"
+                 Width="360"
+                 Height="100"
+                 Grid.Column="1"/>
     </Grid>
 </Window>
