@@ -101,11 +101,37 @@
                  Height="100"
                  Grid.Column="1"/>
         <!-- Time Limit Text -->
-        <TextBlock Text="{Binding SelectedPack.TimeLimitSeconds, StringFormat='Time Limit: {0} seconds'}"
+        <TextBox Text="{Binding SelectedPack.TimeLimitSeconds, UpdateSourceTrigger=PropertyChanged}"
+                 x:Name="TimeLimitTextBox"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Bottom"
+                 Margin="0,0,0,40"
+                 FontSize="16"
+                 Grid.Column="1"/>
+        <!-- Time Limit NOT > (int)0 && NOT Valid time -->
+        <TextBlock Text="Enter a whole number greater than 0 for the time limit in seconds."
                    HorizontalAlignment="Center"
                    VerticalAlignment="Bottom"
-                   Margin="0,0,0,40"
-                   FontSize="16"
-                   Grid.Column="1"/>
+                   Margin="0,0,0,15"
+                   Grid.Column="1">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility"
+                            Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=TimeLimitTextBox, Path=(Validation.HasError)}"
+                                     Value="True">
+                            <Setter Property="Visibility"
+                                    Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SelectedPack.HasValidTimeLimit}"
+                                     Value="False">
+                            <Setter Property="Visibility"
+                                    Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
     </Grid>
 </Window>

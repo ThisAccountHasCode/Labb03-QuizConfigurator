@@ -18,7 +18,22 @@ public class QuizPack : INotifyPropertyChanged
 
     public Difficulty Difficulty { get; set; } = Difficulty.Easy;
 
-    public int TimeLimitSeconds { get; set; } = 30;
+    private int _timeLimitSeconds = 30;
+    public int TimeLimitSeconds
+    {
+        get => _timeLimitSeconds;
+        set
+        {
+            _timeLimitSeconds = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TimeLimitSeconds)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasValidTimeLimit)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasTimeLimitElapsed)));
+        }
+    }
+
+    public bool HasValidTimeLimit => TimeLimitSeconds > 0;
+
+    public bool HasTimeLimitElapsed => TimeLimitSeconds <= 0;
 
     public ObservableCollection<Question> Questions { get; set; } = [];
 
