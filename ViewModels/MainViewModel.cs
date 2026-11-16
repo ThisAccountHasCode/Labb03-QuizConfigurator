@@ -66,9 +66,17 @@ public class MainViewModel : INotifyPropertyChanged
         }
         Question newQuestion = new()
         {
-            Text = "New Question"
+            Text = "New Question",
+            Answers =
+            [
+                new Answer(),
+                new Answer(),
+                new Answer(),
+                new Answer(),
+            ]
         };
         SelectedPack.Questions.Add(newQuestion);
+        SelectedQuestion = newQuestion;
     }
 
     private void AddPack()

@@ -101,13 +101,21 @@
                  Grid.Column="1"/>
         <!-- Answer List -->
         <ListBox ItemsSource="{Binding SelectedQuestion.Answers}"
-                 DisplayMemberPath="Text"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Margin="0,185,0,0"
                  Width="360"
                  Height="100"
-                 Grid.Column="1"/>
+                 Grid.Column="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"
+                             Width="340"
+                             Height="20">
+                    </TextBox>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <!-- Time Limit Text -->
         <TextBox Text="{Binding SelectedPack.TimeLimitSeconds, UpdateSourceTrigger=PropertyChanged}"
                  x:Name="TimeLimitTextBox"
