@@ -39,6 +39,15 @@
                 Width="90"
                 Height="20"
                 Grid.Column="0"/>
+        <!-- Add Pack Button -->
+        <Button Content="Add Pack"
+                Command="{Binding AddPackCommand}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="20,275,0,0"
+                Width="90"
+                Height="20"
+                Grid.Column="0"/>
         <!-- Selected Pack Text -->
         <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
                    HorizontalAlignment="Center"
