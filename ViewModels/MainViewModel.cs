@@ -116,7 +116,7 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void DeletePack()
     {
-        if (SelectedPack == null || SelectedQuestion == null)
+        if (SelectedPack == null)
         {
             return;
         }
