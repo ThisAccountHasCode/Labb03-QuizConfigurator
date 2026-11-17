@@ -16,6 +16,7 @@ public class Question : INotifyPropertyChanged
                 _text = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasQuestionText)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsValid)));
             }
         }
     }
@@ -43,6 +44,8 @@ public class Question : INotifyPropertyChanged
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Answers)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasDuplicateAnswers)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasOneCorrectAnswer)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasFourAnswers)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsValid)));
             }
         }
     }
@@ -59,17 +62,22 @@ public class Question : INotifyPropertyChanged
     public bool HasFourAnswers =>
                 Answers.Count == 4 && Answers.All(answer => answer.HasAnswerText);
 
+    public bool IsValid => HasQuestionText && HasFourAnswers && HasOneCorrectAnswer && !HasDuplicateAnswers;
+
     public event PropertyChangedEventHandler? PropertyChanged;
     private void OnAnswerPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(Answer.Text))
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasDuplicateAnswers)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasFourAnswers)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsValid)));
         }
 
         if (e.PropertyName == nameof(Answer.IsCorrect))
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasOneCorrectAnswer)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsValid)));
         }
     }
 }
