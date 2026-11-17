@@ -21,6 +21,9 @@
         <KeyBinding Key="D"
                     Modifiers="Control+Shift"
                     Command="{Binding DeleteQuestionCommand}"/>
+        <KeyBinding Key="O"
+                    Modifiers="Control+Shift"
+                    Command="{Binding TogglePackOptionsCommand}"/>
     </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -31,6 +34,9 @@
                 <MenuItem Header="_Delete Pack"
                           Command="{Binding DeletePackCommand}"
                           InputGestureText="Ctrl+Shift+P"/>
+                <MenuItem Header="Pack _Options"
+                          Command="{Binding TogglePackOptionsCommand}"
+                          InputGestureText="Ctrl+Shift+O"/>
             </MenuItem>
             <MenuItem Header="_Question">
                 <MenuItem Header="_Add Question"
@@ -126,25 +132,13 @@
                               Width="90"
                               Height="20"/>
                     <!-- Time Limit Text -->
-                    <TextBlock Text="Time limit (seconds):"
-                               Grid.Column="0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               Margin="75,350,0,0"/>
+                    <TextBlock Text="Time limit (seconds):"/>
                     <TextBox Text="{Binding SelectedPack.TimeLimitSeconds, UpdateSourceTrigger=PropertyChanged}"
                              x:Name="TimeLimitTextBox"
                              FontSize="16"
-                             Grid.Column="0"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Top"
-                             Margin="75,370,0,0"
                              Width="90"/>
                     <!-- Time Limit NOT > (int)0 && NOT Valid time -->
                     <TextBlock Text="Enter a whole number greater than 0 for the time limit in seconds."
-                               Grid.Column="0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               Margin="20,405,0,0"
                                Width="180"
                                TextWrapping="Wrap">
                         <TextBlock.Style>

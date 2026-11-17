@@ -13,6 +13,7 @@ public class MainViewModel : INotifyPropertyChanged
         AddPackCommand = new RelayCommand(AddPack);
         DeletePackCommand = new RelayCommand(DeletePack);
         SetCorrectAnswerCommand = new RelayCommand(SetCorrectAnswer);
+        TogglePackOptionsCommand = new RelayCommand(TogglePackOptions);
         DeleteQuestionCommand = new RelayCommand(DeleteQuestion,
         () => SelectedPack != null && SelectedQuestion != null);
 
@@ -28,6 +29,7 @@ public class MainViewModel : INotifyPropertyChanged
     public ICommand AddPackCommand { get; }
     public ICommand DeletePackCommand { get; }
     public ICommand SetCorrectAnswerCommand { get; }
+    public ICommand TogglePackOptionsCommand { get; }
     public RelayCommand DeleteQuestionCommand { get; }
 
     // Events
@@ -167,6 +169,11 @@ public class MainViewModel : INotifyPropertyChanged
         {
             answer.IsCorrect = answer == SelectedAnswer;
         }
+    }
+
+    private void TogglePackOptions()
+    {
+        IsPackOptionsOpen = !IsPackOptionsOpen;
     }
 
     private static QuizPack CreateSamplePack()  // This method creates a sample QuizPack with one question and its answers - It will be deleted
