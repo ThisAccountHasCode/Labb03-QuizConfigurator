@@ -8,269 +8,298 @@
         Title="Quiz Configurator"
         Height="600"
         Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <!-- Selected Pack Text -->
-        <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Margin="20,10,0,0"
-                   FontSize="16"
-                   Grid.Column="0"/>
-        <!-- Quiz Pack List -->
-        <ListBox ItemsSource="{Binding QuizPacks}"
-                 SelectedItem="{Binding SelectedPack}"
-                 DisplayMemberPath="Name"
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Top"
-                 Margin="20,40,0,0"
-                 Width="200"
-                 Height="200"
-                 Grid.Column="0"/>
-        <!-- Questions management UI -->
-        <Grid Grid.Column="1"
-              Width="360"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Top"
-              Margin="0,280,0,0">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Configurator">
+            </MenuItem>
+        </Menu>
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!-- Add Question Button -->
-            <Button Content="Add Question"
-                    Command="{Binding AddQuestionCommand}"
-                    Grid.Column="0"
-                    Margin="0,0,10,0"/>
-            <!-- Delete Question Button -->
-            <Button Content="Delete Question"
-                    Command="{Binding DeleteQuestionCommand}"
-                    Grid.Column="1"
-                    Margin="5,0"/>
-            <!-- Set Correct Answer Button -->
-            <Button Content="Set Correct Answer"
-                    Command="{Binding SetCorrectAnswerCommand}"
-                    Grid.Column="2"
-                    Margin="10,0,0,0"/>
-        </Grid>
-        <!-- Add Pack Button -->
-        <Button Content="Add Pack"
-                Command="{Binding AddPackCommand}"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="75,245,0,0"
-                Width="90"
-                Height="20"
-                Grid.Column="0"/>
-        <!-- Delete Pack Button -->
-        <Button Content="Delete Pack"
-                Command="{Binding DeletePackCommand}"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="75,270,0,0"
-                Width="90"
-                Height="20"
-                Grid.Column="0"/>
-        <!-- Edit Pack Button -->
-        <TextBox Text="{Binding SelectedPack.Name, UpdateSourceTrigger=PropertyChanged}"
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Top"
-                 Margin="75,295,0,0"
-                 Width="90"
-                 Height="20"
-                 Grid.Column="0"
-                 RenderTransformOrigin="0.544,-0.621"/>
-        <!-- Difficulty ComboBox -->
-        <ComboBox ItemsSource="{Binding Difficulties}"
-                  SelectedItem="{Binding SelectedPack.Difficulty, Mode=TwoWay}"
-                  HorizontalAlignment="Left"
+            <!-- Selected Pack Text -->
+            <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="20,10,0,0"
+                       FontSize="16"
+                       Grid.Column="0"/>
+            <!-- Quiz Pack List -->
+            <ListBox ItemsSource="{Binding QuizPacks}"
+                     SelectedItem="{Binding SelectedPack}"
+                     DisplayMemberPath="Name"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     Margin="20,40,0,0"
+                     Width="200"
+                     Height="200"
+                     Grid.Column="0"/>
+            <!-- Questions management UI -->
+            <Grid Grid.Column="1"
+                  Width="360"
+                  HorizontalAlignment="Center"
                   VerticalAlignment="Top"
-                  Margin="75,320,0,0"
-                  Width="90"
-                  Height="20"
-                  Grid.Column="0"/>
-        <!-- Selected Pack Text -->
-        <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   Margin="0,0,0,0"
-                   FontSize="24"
-                   Grid.Column="1"/>
-        <!-- Question List -->
-        <ListBox ItemsSource="{Binding SelectedPack.Questions}"
-                 SelectedItem="{Binding SelectedQuestion}"
-                 DisplayMemberPath="Text"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Top"
-                 Grid.Column="1"
-                 Width="360"
-                 Height="50"
-                 Margin="0,40,0,0"/>
-        <!-- Edit Question Text -->
-        <TextBlock Text="Edit selected question:"
-                   Grid.Column="1"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   Margin="0,95,0,0"/>
-        <!-- Question Text -->
-        <TextBox Text="{Binding SelectedQuestion.Text, UpdateSourceTrigger=PropertyChanged}"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Top"
-                 Width="360"
-                 Height="30"
-                 Margin="0,120,0,0"
-                 Grid.Column="1"/>
-        <!-- Answer List -->
-        <ListBox ItemsSource="{Binding SelectedQuestion.Answers}"
-                 SelectedItem="{Binding SelectedAnswer}"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Top"
-                 Margin="0,160,0,0"
-                 Width="360"
-                 Height="100"
-                 Grid.Column="1">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"
-                                 Width="230"
-                                 Height="20"
-                                 Margin="8,0,0,0">
-                        </TextBox>
-                        <TextBlock Text="✓"
-                                   Foreground="Green"
-                                   Margin="8,0,0,0">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
+                  Margin="0,280,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Add Question Button -->
+                <Button Content="Add Question"
+                        Command="{Binding AddQuestionCommand}"
+                        Grid.Column="0"
+                        Margin="0,0,10,0"/>
+                <!-- Delete Question Button -->
+                <Button Content="Delete Question"
+                        Command="{Binding DeleteQuestionCommand}"
+                        Grid.Column="1"
+                        Margin="5,0"/>
+                <!-- Set Correct Answer Button -->
+                <Button Content="Set Correct Answer"
+                        Command="{Binding SetCorrectAnswerCommand}"
+                        Grid.Column="2"
+                        Margin="10,0,0,0"/>
+            </Grid>
+            <!-- Add Pack Button -->
+            <Button Content="Add Pack"
+                    Command="{Binding AddPackCommand}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="75,245,0,0"
+                    Width="90"
+                    Height="20"
+                    Grid.Column="0"/>
+            <!-- Delete Pack Button -->
+            <Button Content="Delete Pack"
+                    Command="{Binding DeletePackCommand}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="75,270,0,0"
+                    Width="90"
+                    Height="20"
+                    Grid.Column="0"/>
+            <!-- Edit Pack Button -->
+            <TextBox Text="{Binding SelectedPack.Name, UpdateSourceTrigger=PropertyChanged}"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     Margin="75,295,0,0"
+                     Width="90"
+                     Height="20"
+                     Grid.Column="0"
+                     RenderTransformOrigin="0.544,-0.621"/>
+            <!-- Difficulty ComboBox -->
+            <ComboBox ItemsSource="{Binding Difficulties}"
+                      SelectedItem="{Binding SelectedPack.Difficulty, Mode=TwoWay}"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Margin="75,320,0,0"
+                      Width="90"
+                      Height="20"
+                      Grid.Column="0"/>
+            <!-- Selected Pack Text -->
+            <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="0,0,0,0"
+                       FontSize="24"
+                       Grid.Column="1"/>
+            <!-- Question List -->
+            <ListBox ItemsSource="{Binding SelectedPack.Questions}"
+                     SelectedItem="{Binding SelectedQuestion}"
+                     DisplayMemberPath="Text"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Top"
+                     Grid.Column="1"
+                     Width="360"
+                     Height="50"
+                     Margin="0,40,0,0"/>
+            <!-- Edit Question Text -->
+            <TextBlock Text="Edit selected question:"
+                       Grid.Column="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="0,95,0,0"/>
+            <!-- Question Text -->
+            <TextBox Text="{Binding SelectedQuestion.Text, UpdateSourceTrigger=PropertyChanged}"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Top"
+                     Width="360"
+                     Height="30"
+                     Margin="0,120,0,0"
+                     Grid.Column="1"/>
+            <!-- Answer List -->
+            <ListBox ItemsSource="{Binding SelectedQuestion.Answers}"
+                     SelectedItem="{Binding SelectedAnswer}"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Top"
+                     Margin="0,160,0,0"
+                     Width="360"
+                     Height="100"
+                     Grid.Column="1">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"
+                                     Width="230"
+                                     Height="20"
+                                     Margin="8,0,0,0">
+                            </TextBox>
+                            <TextBlock Text="✓"
+                                       Foreground="Green"
+                                       Margin="8,0,0,0">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility"
+                                                Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsCorrect}"
+                                                         Value="True">
+                                                <Setter Property="Visibility"
+                                                        Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="Required"
+                                       Foreground="Red">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility"
+                                                Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding HasAnswerText}"
+                                                         Value="false">
+                                                <Setter Property="Visibility"
+                                                        Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <!-- Duplicate validation message -->
+            <StackPanel Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Margin="0,305,0,0">
+                <TextBlock Text="Must be 4 unique answers"
+                           TextAlignment="Center"
+                           Foreground="Red">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility"
+                                    Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedQuestion.HasDuplicateAnswers}"
+                                             Value="True">
                                     <Setter Property="Visibility"
-                                            Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsCorrect}"
-                                                     Value="True">
-                                            <Setter Property="Visibility"
-                                                    Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                        <TextBlock Text="Required"
-                                   Foreground="Red">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
+                                            Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <!-- One Correct answer exist validation message -->
+                <TextBlock Text="One answer must be marked correct"
+                           TextAlignment="Center"
+                           Foreground="Red">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility"
+                                    Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedQuestion.HasOneCorrectAnswer}"
+                                             Value="False">
                                     <Setter Property="Visibility"
-                                            Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding HasAnswerText}"
-                                                     Value="false">
-                                            <Setter Property="Visibility"
-                                                    Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <!-- Duplicate validation message -->
-        <TextBlock Text="Must be 4 unique answers"
-                   Foreground="Red"
-                   Grid.Column="1"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Center"
-                   Margin="0,305,0,0">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility"
-                            Value="Collapsed"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedQuestion.HasDuplicateAnswers}"
-                                     Value="True">
+                                            Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <!-- Complete validation message -->
+                <TextBlock Text="Question is correctly configured!"
+                           TextAlignment="Center"
+                           Foreground="Green">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
                             <Setter Property="Visibility"
-                                    Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-        <!-- One Correct answer exist validation message -->
-        <TextBlock Text="One answer must be marked correct"
-                   Foreground="Red"
-                   Grid.Column="1"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Center"
-                   Margin="0,320,0,0">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility"
-                            Value="Collapsed"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedQuestion.HasOneCorrectAnswer}"
-                                     Value="False">
+                                    Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedQuestion.IsValid}"
+                                             Value="True">
+                                    <Setter Property="Visibility"
+                                            Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <!-- Question text validation message -->
+                <TextBlock Text="Enter a question:"
+                           TextAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
                             <Setter Property="Visibility"
-                                    Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-        <!-- Question text validation message -->
-        <TextBlock Text="Enter a question:"
-                   VerticalAlignment="Top"
-                   Margin="0,325,0,0"
-                   Grid.Column="1">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility"
-                            Value="Collapsed"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedQuestion.HasQuestionText}"
-                                     Value="False">
-                            <Setter Property="Visibility"
-                                    Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-        <!-- Time Limit Text -->
-        <TextBox Text="{Binding SelectedPack.TimeLimitSeconds, UpdateSourceTrigger=PropertyChanged}"
-                 x:Name="TimeLimitTextBox"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Bottom"
-                 Margin="0,0,0,40"
-                 FontSize="16"
-                 Grid.Column="1"/>
-        <!-- Time Limit NOT > (int)0 && NOT Valid time -->
-        <TextBlock Text="Enter a whole number greater than 0 for the time limit in seconds."
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Bottom"
-                   Margin="0,0,0,15"
-                   Grid.Column="1">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility"
-                            Value="Collapsed"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=TimeLimitTextBox, Path=(Validation.HasError)}"
-                                     Value="True">
-                            <Setter Property="Visibility"
-                                    Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding SelectedPack.HasValidTimeLimit}"
-                                     Value="False">
-                            <Setter Property="Visibility"
-                                    Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-    </Grid>
+                                    Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedQuestion.HasQuestionText}"
+                                             Value="False">
+                                    <Setter Property="Visibility"
+                                            Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+            <!-- Time Limit Text -->
+            <TextBlock Text="Time limit (seconds):"
+                       Grid.Column="0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="75,350,0,0"/>
+            <TextBox Text="{Binding SelectedPack.TimeLimitSeconds, UpdateSourceTrigger=PropertyChanged}"
+                     x:Name="TimeLimitTextBox"
+                     FontSize="16"
+                     Grid.Column="0"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     Margin="75,370,0,0"
+                     Width="90"/>
+            <!-- Time Limit NOT > (int)0 && NOT Valid time -->
+            <TextBlock Text="Enter a whole number greater than 0 for the time limit in seconds."
+                       Grid.Column="0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="20,405,0,0"
+                       Width="180"
+                       TextWrapping="Wrap">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility"
+                                Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=TimeLimitTextBox, Path=(Validation.HasError)}"
+                                         Value="True">
+                                <Setter Property="Visibility"
+                                        Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedPack.HasValidTimeLimit}"
+                                         Value="False">
+                                <Setter Property="Visibility"
+                                        Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+    </DockPanel>
 </Window>
