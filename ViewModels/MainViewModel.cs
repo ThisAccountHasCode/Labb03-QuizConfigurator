@@ -84,7 +84,19 @@ public class MainViewModel : INotifyPropertyChanged
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsTimeRunningLow)));
         }
     }
+
     public bool IsTimeRunningLow => RemainingSeconds < 10;
+
+    private bool _isPackOptionsOpen;
+    public bool IsPackOptionsOpen
+    {
+        get => _isPackOptionsOpen;
+        set
+        {
+            _isPackOptionsOpen = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPackOptionsOpen)));
+        }
+    }
 
     // Methods
 

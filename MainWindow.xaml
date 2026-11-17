@@ -108,24 +108,66 @@
                     Width="90"
                     Height="20"
                     Grid.Column="0"/>
-            <!-- Edit Pack Button -->
-            <TextBox Text="{Binding SelectedPack.Name, UpdateSourceTrigger=PropertyChanged}"
-                     HorizontalAlignment="Left"
-                     VerticalAlignment="Top"
-                     Margin="75,295,0,0"
-                     Width="90"
-                     Height="20"
-                     Grid.Column="0"
-                     RenderTransformOrigin="0.544,-0.621"/>
-            <!-- Difficulty ComboBox -->
-            <ComboBox ItemsSource="{Binding Difficulties}"
-                      SelectedItem="{Binding SelectedPack.Difficulty, Mode=TwoWay}"
+            <!-- Pack Options Expander -->
+            <Expander Header="Pack Options"
+                      IsExpanded="{Binding IsPackOptionsOpen, Mode=TwoWay}"
+                      Grid.Column="0"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Top"
-                      Margin="75,320,0,0"
-                      Width="90"
-                      Height="20"
-                      Grid.Column="0"/>
+                      Margin="20,295,0,0">
+                <StackPanel>
+                    <!-- Edit Pack Button -->
+                    <TextBox Text="{Binding SelectedPack.Name, UpdateSourceTrigger=PropertyChanged}"
+                             Width="90"
+                             Height="20"/>
+                    <!-- Difficulty ComboBox -->
+                    <ComboBox ItemsSource="{Binding Difficulties}"
+                              SelectedItem="{Binding SelectedPack.Difficulty, Mode=TwoWay}"
+                              Width="90"
+                              Height="20"/>
+                    <!-- Time Limit Text -->
+                    <TextBlock Text="Time limit (seconds):"
+                               Grid.Column="0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Margin="75,350,0,0"/>
+                    <TextBox Text="{Binding SelectedPack.TimeLimitSeconds, UpdateSourceTrigger=PropertyChanged}"
+                             x:Name="TimeLimitTextBox"
+                             FontSize="16"
+                             Grid.Column="0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Margin="75,370,0,0"
+                             Width="90"/>
+                    <!-- Time Limit NOT > (int)0 && NOT Valid time -->
+                    <TextBlock Text="Enter a whole number greater than 0 for the time limit in seconds."
+                               Grid.Column="0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Margin="20,405,0,0"
+                               Width="180"
+                               TextWrapping="Wrap">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=TimeLimitTextBox, Path=(Validation.HasError)}"
+                                                 Value="True">
+                                        <Setter Property="Visibility"
+                                                Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SelectedPack.HasValidTimeLimit}"
+                                                 Value="False">
+                                        <Setter Property="Visibility"
+                                                Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+            </Expander>
             <!-- Selected Pack Text -->
             <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
                        HorizontalAlignment="Center"
@@ -287,47 +329,6 @@
                     </TextBlock.Style>
                 </TextBlock>
             </StackPanel>
-            <!-- Time Limit Text -->
-            <TextBlock Text="Time limit (seconds):"
-                       Grid.Column="0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       Margin="75,350,0,0"/>
-            <TextBox Text="{Binding SelectedPack.TimeLimitSeconds, UpdateSourceTrigger=PropertyChanged}"
-                     x:Name="TimeLimitTextBox"
-                     FontSize="16"
-                     Grid.Column="0"
-                     HorizontalAlignment="Left"
-                     VerticalAlignment="Top"
-                     Margin="75,370,0,0"
-                     Width="90"/>
-            <!-- Time Limit NOT > (int)0 && NOT Valid time -->
-            <TextBlock Text="Enter a whole number greater than 0 for the time limit in seconds."
-                       Grid.Column="0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       Margin="20,405,0,0"
-                       Width="180"
-                       TextWrapping="Wrap">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Visibility"
-                                Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=TimeLimitTextBox, Path=(Validation.HasError)}"
-                                         Value="True">
-                                <Setter Property="Visibility"
-                                        Value="Visible"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding SelectedPack.HasValidTimeLimit}"
-                                         Value="False">
-                                <Setter Property="Visibility"
-                                        Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
         </Grid>
     </DockPanel>
 </Window>
