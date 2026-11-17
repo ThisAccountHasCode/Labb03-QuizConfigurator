@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Labb03___Quiz_Configurator"
         mc:Ignorable="d"
         Title="Quiz Configurator"
-        Height="450"
-        Width="760">
+        Height="600"
+        Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"/>
@@ -45,7 +45,7 @@
             <Button Content="Add Question"
                     Command="{Binding AddQuestionCommand}"
                     Grid.Column="0"
-                    Margin="5,0"/>
+                    Margin="0,0,10,0"/>
             <!-- Delete Question Button -->
             <Button Content="Delete Question"
                     Command="{Binding DeleteQuestionCommand}"
@@ -55,7 +55,7 @@
             <Button Content="Set Correct Answer"
                     Command="{Binding SetCorrectAnswerCommand}"
                     Grid.Column="2"
-                    Margin="5,0"/>
+                    Margin="10,0,0,0"/>
         </Grid>
         <!-- Add Pack Button -->
         <Button Content="Add Pack"
@@ -131,7 +131,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"
-                                 Width="300"
+                                 Width="230"
                                  Height="20"
                                  Margin="8,0,0,0">
                         </TextBox>
@@ -145,6 +145,22 @@
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsCorrect}"
                                                      Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Text="Required"
+                                   Foreground="Red">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasAnswerText}"
+                                                     Value="false">
                                             <Setter Property="Visibility"
                                                     Value="Visible"/>
                                         </DataTrigger>
