@@ -4,6 +4,9 @@ namespace Labb03___Quiz_Configurator.Models;
 
 public class Answer : INotifyPropertyChanged
 {
+
+    public bool HasAnswerText => !string.IsNullOrWhiteSpace(Text);
+
     private string _text = string.Empty;
     public string Text
     {
@@ -14,6 +17,7 @@ public class Answer : INotifyPropertyChanged
             {
                 _text = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasAnswerText)));
             }
         }
     }
