@@ -56,6 +56,8 @@ public class Question : INotifyPropertyChanged
       .Any(group => group.Count() > 1);
 
     public bool HasOneCorrectAnswer => Answers.Count(answer => answer.IsCorrect) == 1;
+    public bool HasFourAnswers =>
+                Answers.Count == 4 && Answers.All(answer => answer.HasAnswerText);
 
     public event PropertyChangedEventHandler? PropertyChanged;
     private void OnAnswerPropertyChanged(object? sender, PropertyChangedEventArgs e)
