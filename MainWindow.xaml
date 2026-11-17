@@ -30,6 +30,7 @@
                  Width="200"
                  Height="200"
                  Grid.Column="0"/>
+        <!-- Questions management UI -->
         <Grid Grid.Column="1"
               Width="360"
               HorizontalAlignment="Center"
