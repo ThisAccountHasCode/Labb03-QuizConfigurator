@@ -13,7 +13,8 @@ public class MainViewModel : INotifyPropertyChanged
         AddPackCommand = new RelayCommand(AddPack);
         DeletePackCommand = new RelayCommand(DeletePack);
         SetCorrectAnswerCommand = new RelayCommand(SetCorrectAnswer);
-        DeleteQuestionCommand = new RelayCommand(DeleteQuestion);
+        DeleteQuestionCommand = new RelayCommand(DeleteQuestion,
+        () => SelectedPack != null && SelectedQuestion != null);
 
         CurrentPack = CreateSamplePack();
 
@@ -27,7 +28,7 @@ public class MainViewModel : INotifyPropertyChanged
     public ICommand AddPackCommand { get; }
     public ICommand DeletePackCommand { get; }
     public ICommand SetCorrectAnswerCommand { get; }
-    public ICommand DeleteQuestionCommand { get; }
+    public RelayCommand DeleteQuestionCommand { get; }
 
     // Events
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -44,6 +45,7 @@ public class MainViewModel : INotifyPropertyChanged
         set
         {
             _selectedPack = value;
+            DeleteQuestionCommand.RaiseCanExecuteChanged();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedPack)));
         }
     }
@@ -55,6 +57,7 @@ public class MainViewModel : INotifyPropertyChanged
         set
         {
             _selectedQuestion = value;
+            DeleteQuestionCommand.RaiseCanExecuteChanged();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedQuestion)));
         }
     }
