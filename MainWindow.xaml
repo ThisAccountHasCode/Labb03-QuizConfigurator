@@ -10,7 +10,17 @@
         Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_Configurator">
+            <MenuItem Header="_Quiz Pack">
+                <MenuItem Header="_Add Pack"
+                          Command="{Binding AddPackCommand}"/>
+                <MenuItem Header="_Delete Pack"
+                          Command="{Binding DeletePackCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Question">
+                <MenuItem Header="_Add Question"
+                          Command="{Binding AddQuestionCommand}"/>
+                <MenuItem Header="_Delete Question"
+                          Command="{Binding DeleteQuestionCommand}"/>
             </MenuItem>
         </Menu>
         <Grid>
