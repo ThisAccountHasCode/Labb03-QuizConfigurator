@@ -32,6 +32,7 @@ public class MainViewModel : INotifyPropertyChanged
     // Events
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    // Properties
     public QuizPack CurrentPack { get; }
     public ObservableCollection<QuizPack> QuizPacks { get; } = [];
     public Difficulty[] Difficulties { get; } = Enum.GetValues<Difficulty>();
@@ -69,7 +70,20 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    private int _remainingSeconds;
+    public int RemainingSeconds
+    {
+        get => _remainingSeconds;
+        set
+        {
+            _remainingSeconds = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RemainingSeconds)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsTimeRunningLow)));
+        }
+    }
+    public bool IsTimeRunningLow => RemainingSeconds < 10;
 
+    // Methods
 
     private void AddQuestion()
     {
