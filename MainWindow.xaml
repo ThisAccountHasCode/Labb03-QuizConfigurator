@@ -8,9 +8,14 @@
         Title="Quiz Configurator"
         Height="600"
         Width="800">
+    <Window.InputBindings>
+        <KeyBinding Key="N"
+                    Modifiers="Control+Shift"
+                    Command="{Binding AddQuestionCommand}"/>
+    </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_Quiz Pack">
+            <MenuItem Header="Quiz _Pack">
                 <MenuItem Header="_Add Pack"
                           Command="{Binding AddPackCommand}"/>
                 <MenuItem Header="_Delete Pack"
