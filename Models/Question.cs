@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace Labb03___Quiz_Configurator.Models;
 
@@ -19,11 +20,54 @@ public class Question : INotifyPropertyChanged
         }
     }
 
-    public bool HasQuestionText => !string.IsNullOrEmpty(Text);
+    private List<Answer> _answers = [];
+    public List<Answer> Answers
+    {
+        get => _answers;
+        set
+        {
+            if (_answers != value)
+            {
+                foreach (Answer answer in _answers)
+                {
+                    answer.PropertyChanged -= OnAnswerPropertyChanged; // unsubscribes it from the old answers when the list is replaced
+                }
 
-    public List<Answer> Answers { get; set; } = [];
+                _answers = value;
+
+                foreach (Answer answer in _answers)
+                {
+                    answer.PropertyChanged += OnAnswerPropertyChanged; // subscribes the question’s handler to each answer’s event
+                }
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Answers)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasDuplicateAnswers)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasOneCorrectAnswer)));
+            }
+        }
+    }
+    public bool HasQuestionText => !string.IsNullOrWhiteSpace(Text);
 
     public Difficulty Difficulty { get; set; } = Difficulty.Easy;
 
+    public bool HasDuplicateAnswers => Answers
+      .Where(answer => answer.HasAnswerText)
+      .GroupBy(answer => answer.Text.Trim(), StringComparer.OrdinalIgnoreCase)
+      .Any(group => group.Count() > 1);
+
+    public bool HasOneCorrectAnswer => Answers.Count(answer => answer.IsCorrect) == 1;
+
     public event PropertyChangedEventHandler? PropertyChanged;
+    private void OnAnswerPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(Answer.Text))
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasDuplicateAnswers)));
+        }
+
+        if (e.PropertyName == nameof(Answer.IsCorrect))
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasOneCorrectAnswer)));
+        }
+    }
 }

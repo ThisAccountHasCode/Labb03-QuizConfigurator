@@ -35,7 +35,7 @@
               Width="360"
               HorizontalAlignment="Center"
               VerticalAlignment="Top"
-              Margin="0,295,0,0">
+              Margin="0,280,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -106,24 +106,30 @@
                  DisplayMemberPath="Text"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
-                 Margin="0,40,0,0"
+                 Grid.Column="1"
                  Width="360"
-                 Height="100"
-                 Grid.Column="1"/>
+                 Height="50"
+                 Margin="0,40,0,0"/>
+        <!-- Edit Question Text -->
+        <TextBlock Text="Edit selected question:"
+                   Grid.Column="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="0,95,0,0"/>
         <!-- Question Text -->
         <TextBox Text="{Binding SelectedQuestion.Text, UpdateSourceTrigger=PropertyChanged}"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Width="360"
                  Height="30"
-                 Margin="0,145,0,0"
+                 Margin="0,120,0,0"
                  Grid.Column="1"/>
         <!-- Answer List -->
         <ListBox ItemsSource="{Binding SelectedQuestion.Answers}"
                  SelectedItem="{Binding SelectedAnswer}"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
-                 Margin="0,185,0,0"
+                 Margin="0,160,0,0"
                  Width="360"
                  Height="100"
                  Grid.Column="1">
@@ -172,6 +178,48 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <!-- Duplicate validation message -->
+        <TextBlock Text="Must be 4 unique answers"
+                   Foreground="Red"
+                   Grid.Column="1"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Margin="0,305,0,0">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility"
+                            Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedQuestion.HasDuplicateAnswers}"
+                                     Value="True">
+                            <Setter Property="Visibility"
+                                    Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <!-- One Correct answer exist validation message -->
+        <TextBlock Text="One answer must be marked correct"
+                   Foreground="Red"
+                   Grid.Column="1"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Margin="0,320,0,0">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility"
+                            Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedQuestion.HasOneCorrectAnswer}"
+                                     Value="False">
+                            <Setter Property="Visibility"
+                                    Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <!-- Question text validation message -->
         <TextBlock Text="Enter a question:"
                    VerticalAlignment="Top"
