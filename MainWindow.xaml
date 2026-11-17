@@ -9,23 +9,36 @@
         Height="600"
         Width="800">
     <Window.InputBindings>
+        <KeyBinding Key="A"
+                    Modifiers="Control+Shift"
+                    Command="{Binding AddPackCommand}"/>
+        <KeyBinding Key="P"
+                    Modifiers="Control+Shift"
+                    Command="{Binding DeletePackCommand}"/>
         <KeyBinding Key="N"
                     Modifiers="Control+Shift"
                     Command="{Binding AddQuestionCommand}"/>
+        <KeyBinding Key="D"
+                    Modifiers="Control+Shift"
+                    Command="{Binding DeleteQuestionCommand}"/>
     </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Quiz _Pack">
                 <MenuItem Header="_Add Pack"
-                          Command="{Binding AddPackCommand}"/>
+                          Command="{Binding AddPackCommand}"
+                          InputGestureText="Ctrl+Shift+A"/>
                 <MenuItem Header="_Delete Pack"
-                          Command="{Binding DeletePackCommand}"/>
+                          Command="{Binding DeletePackCommand}"
+                          InputGestureText="Ctrl+Shift+P"/>
             </MenuItem>
             <MenuItem Header="_Question">
                 <MenuItem Header="_Add Question"
-                          Command="{Binding AddQuestionCommand}"/>
+                          Command="{Binding AddQuestionCommand}"
+                          InputGestureText="Ctrl+Shift+N"/>
                 <MenuItem Header="_Delete Question"
-                          Command="{Binding DeleteQuestionCommand}"/>
+                          Command="{Binding DeleteQuestionCommand}"
+                          InputGestureText="Ctrl+Shift+D"/>
             </MenuItem>
         </Menu>
         <Grid>
