@@ -18,6 +18,7 @@ public class MainViewModel : INotifyPropertyChanged
         SetCorrectAnswerCommand = new RelayCommand(SetCorrectAnswer);
         TogglePackOptionsCommand = new RelayCommand(TogglePackOptions);
         SavePackCommand = new AsyncRelayCommand(SavePackAsync);
+        OpenPackCommand = new AsyncRelayCommand(OpenPackAsync);
         DeleteQuestionCommand = new RelayCommand(DeleteQuestion,
         () => SelectedPack != null && SelectedQuestion != null);
 
@@ -35,6 +36,7 @@ public class MainViewModel : INotifyPropertyChanged
     public ICommand SetCorrectAnswerCommand { get; }
     public ICommand TogglePackOptionsCommand { get; }
     public ICommand SavePackCommand { get; }
+    public ICommand OpenPackCommand { get; }
     public RelayCommand DeleteQuestionCommand { get; }
 
     // Events
@@ -111,10 +113,8 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void AddQuestion()
     {
-        if (SelectedPack == null)
-        {
-            return;
-        }
+        if (SelectedPack == null) { return; }
+
         Question newQuestion = new()
         {
             Text = "New Question",
@@ -132,10 +132,7 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void DeleteQuestion()
     {
-        if (SelectedPack == null || SelectedQuestion == null)
-        {
-            return;
-        }
+        if (SelectedPack == null || SelectedQuestion == null) { return; }
         SelectedPack.Questions.Remove(SelectedQuestion);
         SelectedQuestion = SelectedPack.Questions.FirstOrDefault();
     }
@@ -162,15 +159,9 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void SetCorrectAnswer()
     {
-        if (SelectedQuestion == null || SelectedAnswer == null)
-        {
-            return;
-        }
+        if (SelectedQuestion == null || SelectedAnswer == null) { return; }
 
-        if (!SelectedQuestion.Answers.Contains(SelectedAnswer))
-        {
-            return;
-        }
+        if (!SelectedQuestion.Answers.Contains(SelectedAnswer)) { return; }
 
         foreach (var answer in SelectedQuestion.Answers)
         {
@@ -185,10 +176,7 @@ public class MainViewModel : INotifyPropertyChanged
 
     private async Task SavePackAsync()
     {
-        if (SelectedPack == null)
-        {
-            return;
-        }
+        if (SelectedPack == null) { return; }
 
         SaveFileDialog dialog = new();
 
@@ -203,6 +191,25 @@ public class MainViewModel : INotifyPropertyChanged
         catch (Exception ex)
         {
             MessageBox.Show($"Could not save the pack: {ex.Message}");
+        }
+    }
+
+    private async Task OpenPackAsync()
+    {
+        OpenFileDialog dialog = new();
+        dialog.Filter = "JSON files (*.json)|*.json";
+
+        if (dialog.ShowDialog() != true) { return; }
+
+        try
+        {
+            QuizPack loadedPack = await _packStorage.LoadAsync(dialog.FileName);
+            QuizPacks.Add(loadedPack);
+            SelectedPack = loadedPack;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Could not open the pack: {ex.Message}");
         }
     }
 
