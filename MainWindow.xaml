@@ -79,10 +79,10 @@
                     Width="120"
                     Grid.Row="1"/>
             <!-- Selected Pack Text -->
-            <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
+            <TextBlock Text="Select a pack:"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       Margin="20,10,0,0"
+                       Margin="60,10,0,0"
                        FontSize="16"
                        Grid.Column="0"/>
             <!-- Quiz Pack List -->
@@ -101,7 +101,7 @@
                   Width="360"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Top"
-                  Margin="0,114,0,0"
+                  Margin="0,115,0,0"
                   Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
