@@ -5,6 +5,8 @@
         Height="400"
         Width="600">
     <StackPanel Margin="20">
+        <TextBlock Text="{Binding QuestionProgress}"/>
+        <TextBlock Text="{Binding RemainingTimeSeconds, StringFormat='Time remaining: {0} seconds'}"/>
         <TextBlock Text="{Binding CurrentQuestion.Text}"
                    FontSize="20"/>
         <ListBox ItemsSource="{Binding CurrentAnswers}"
@@ -13,5 +15,7 @@
         <Button Content="Submit Answer"
                 Command="{Binding SubmitAnswerCommand}"/>
         <TextBlock Text="{Binding Feedback}"/>
+        <Button Content="Continue / Result"
+                Command="{Binding NextQuestionCommand}"/>
     </StackPanel>
 </Window>

@@ -9,6 +9,8 @@ public partial class PlayWindow : Window
     public PlayWindow(QuizPack pack)
     {
         InitializeComponent();
-        DataContext = new PlayViewModel(pack);
+        PlayViewModel viewModel = new(pack);
+        DataContext = viewModel;
+        Closed += (_, _) => viewModel.StopTimer();
     }
 }
