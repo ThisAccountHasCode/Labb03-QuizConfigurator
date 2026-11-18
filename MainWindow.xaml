@@ -24,6 +24,9 @@
         <KeyBinding Key="O"
                     Modifiers="Control+Shift"
                     Command="{Binding TogglePackOptionsCommand}"/>
+        <KeyBinding Key="S"
+                    Modifiers="Control+Shift"
+                    Command="{Binding SavePackCommand}"/>
     </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -37,6 +40,9 @@
                 <MenuItem Header="Pack _Options"
                           Command="{Binding TogglePackOptionsCommand}"
                           InputGestureText="Ctrl+Shift+O"/>
+                <MenuItem Header="_Save Pack"
+                          Command="{Binding SavePackCommand}"
+                          InputGestureText="Ctrl+Shift+S"/>
             </MenuItem>
             <MenuItem Header="_Question">
                 <MenuItem Header="_Add Question"

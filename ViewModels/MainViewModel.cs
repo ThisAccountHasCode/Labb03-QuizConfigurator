@@ -1,7 +1,10 @@
+using Microsoft.Win32;
+using System.Windows;
+using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Input;
 using Labb03___Quiz_Configurator.Models;
+using Labb03___Quiz_Configurator.Storage;
 
 namespace Labb03___Quiz_Configurator.ViewModels;
 
@@ -14,6 +17,7 @@ public class MainViewModel : INotifyPropertyChanged
         DeletePackCommand = new RelayCommand(DeletePack);
         SetCorrectAnswerCommand = new RelayCommand(SetCorrectAnswer);
         TogglePackOptionsCommand = new RelayCommand(TogglePackOptions);
+        SavePackCommand = new AsyncRelayCommand(SavePackAsync);
         DeleteQuestionCommand = new RelayCommand(DeleteQuestion,
         () => SelectedPack != null && SelectedQuestion != null);
 
@@ -30,6 +34,7 @@ public class MainViewModel : INotifyPropertyChanged
     public ICommand DeletePackCommand { get; }
     public ICommand SetCorrectAnswerCommand { get; }
     public ICommand TogglePackOptionsCommand { get; }
+    public ICommand SavePackCommand { get; }
     public RelayCommand DeleteQuestionCommand { get; }
 
     // Events
@@ -99,6 +104,8 @@ public class MainViewModel : INotifyPropertyChanged
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPackOptionsOpen)));
         }
     }
+
+    private readonly PackStorage _packStorage = new();
 
     // Methods
 
@@ -174,6 +181,29 @@ public class MainViewModel : INotifyPropertyChanged
     private void TogglePackOptions()
     {
         IsPackOptionsOpen = !IsPackOptionsOpen;
+    }
+
+    private async Task SavePackAsync()
+    {
+        if (SelectedPack == null)
+        {
+            return;
+        }
+
+        SaveFileDialog dialog = new();
+
+        dialog.Filter = "JSON files (*.json)|*.json";
+
+        if (dialog.ShowDialog() != true) { return; }
+
+        try
+        {
+            await _packStorage.SaveAsync(SelectedPack, dialog.FileName);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Could not save the pack: {ex.Message}");
+        }
     }
 
     private static QuizPack CreateSamplePack()  // This method creates a sample QuizPack with one question and its answers - It will be deleted
