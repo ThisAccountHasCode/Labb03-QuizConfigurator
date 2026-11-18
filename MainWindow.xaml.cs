@@ -20,6 +20,12 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainViewModel();
+        MainViewModel viewModel = new();
+        viewModel.PlayRequested += pack =>
+        {
+            PlayWindow playWindow = new(pack) { Owner = this };
+            playWindow.ShowDialog();
+        };
+        DataContext = viewModel;
     }
 }

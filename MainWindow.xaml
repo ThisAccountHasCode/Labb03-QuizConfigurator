@@ -34,21 +34,21 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Quiz _Pack">
+                <MenuItem Header="Op_en Pack"
+                          Command="{Binding OpenPackCommand}"
+                          InputGestureText="Ctrl+Shift+E"/>
+                <MenuItem Header="Pack _Options"
+                          Command="{Binding TogglePackOptionsCommand}"
+                          InputGestureText="Ctrl+Shift+O"/>
                 <MenuItem Header="_Add Pack"
                           Command="{Binding AddPackCommand}"
                           InputGestureText="Ctrl+Shift+A"/>
                 <MenuItem Header="_Delete Pack"
                           Command="{Binding DeletePackCommand}"
                           InputGestureText="Ctrl+Shift+P"/>
-                <MenuItem Header="Pack _Options"
-                          Command="{Binding TogglePackOptionsCommand}"
-                          InputGestureText="Ctrl+Shift+O"/>
                 <MenuItem Header="_Save Pack"
                           Command="{Binding SavePackCommand}"
                           InputGestureText="Ctrl+Shift+S"/>
-                <MenuItem Header="Op_en Pack"
-                          Command="{Binding OpenPackCommand}"
-                          InputGestureText="Ctrl+Shift+E"/>
             </MenuItem>
             <MenuItem Header="_Question">
                 <MenuItem Header="_Add Question"
@@ -64,6 +64,14 @@
                 <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <!-- Start game button -->
+            <Button Content="Play"
+                    Command="{Binding StartGameCommand}"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Margin="0,400,0,0"
+                    Width="120"/>
             <!-- Selected Pack Text -->
             <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
                        HorizontalAlignment="Left"

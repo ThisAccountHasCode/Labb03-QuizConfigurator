@@ -19,6 +19,7 @@ public class MainViewModel : INotifyPropertyChanged
         TogglePackOptionsCommand = new RelayCommand(TogglePackOptions);
         SavePackCommand = new AsyncRelayCommand(SavePackAsync);
         OpenPackCommand = new AsyncRelayCommand(OpenPackAsync);
+        StartGameCommand = new RelayCommand(StartGame);
         DeleteQuestionCommand = new RelayCommand(DeleteQuestion,
         () => SelectedPack != null && SelectedQuestion != null);
 
@@ -37,10 +38,12 @@ public class MainViewModel : INotifyPropertyChanged
     public ICommand TogglePackOptionsCommand { get; }
     public ICommand SavePackCommand { get; }
     public ICommand OpenPackCommand { get; }
+    public ICommand StartGameCommand { get; }
     public RelayCommand DeleteQuestionCommand { get; }
 
     // Events
     public event PropertyChangedEventHandler? PropertyChanged;
+    public event Action<QuizPack>? PlayRequested;
 
     // Properties
     public QuizPack CurrentPack { get; }
@@ -210,6 +213,19 @@ public class MainViewModel : INotifyPropertyChanged
         {
             MessageBox.Show($"Could not open the pack: {ex.Message}");
         }
+    }
+
+    private void StartGame()
+    {
+        if (SelectedPack == null) { return; }
+
+        if (SelectedPack.Questions.Count == 0 || !SelectedPack.HasValidTimeLimit || SelectedPack.Questions.Any(question => !question.IsValid))
+        {
+            MessageBox.Show("Add at least one valid question and set a positive time limit before playing.");
+            return;
+        }
+
+        PlayRequested?.Invoke(SelectedPack);
     }
 
     private static QuizPack CreateSamplePack()  // This method creates a sample QuizPack with one question and its answers - It will be deleted
