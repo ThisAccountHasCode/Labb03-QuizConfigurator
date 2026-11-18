@@ -28,6 +28,10 @@ public class Question : INotifyPropertyChanged
         set
         {
             ArgumentNullException.ThrowIfNull(value);
+            if (value.Any(answer => answer is null))
+            {
+                throw new ArgumentException("The answer list contains an empty answer field.", nameof(value));
+            }
 
             if (_answers != value)
             {
