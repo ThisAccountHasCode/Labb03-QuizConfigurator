@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Labb03___Quiz_Configurator"
         mc:Ignorable="d"
         Title="Quiz Configurator"
-        Height="600"
+        Height="568"
         Width="800">
     <Window.InputBindings>
         <KeyBinding Key="A"
@@ -59,7 +59,12 @@
                           InputGestureText="Ctrl+Shift+D"/>
             </MenuItem>
         </Menu>
-        <Grid>
+        <Grid Height="500"
+              Width="780">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="229*"/>
+                <RowDefinition Height="316*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
@@ -70,8 +75,9 @@
                     Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
-                    Margin="0,400,0,0"
-                    Width="120"/>
+                    Margin="0,220,0,0"
+                    Width="120"
+                    Grid.Row="1"/>
             <!-- Selected Pack Text -->
             <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
                        HorizontalAlignment="Left"
@@ -85,16 +91,18 @@
                      DisplayMemberPath="Name"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Top"
-                     Margin="20,40,0,0"
-                     Width="200"
+                     Margin="35,40,0,0"
+                     Width="170"
                      Height="200"
-                     Grid.Column="0"/>
+                     Grid.Column="0"
+                     Grid.RowSpan="2"/>
             <!-- Questions management UI -->
             <Grid Grid.Column="1"
                   Width="360"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Top"
-                  Margin="0,280,0,0">
+                  Margin="0,114,0,0"
+                  Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -121,26 +129,30 @@
                     Command="{Binding AddPackCommand}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Margin="75,245,0,0"
+                    Margin="75,39,0,0"
                     Width="90"
                     Height="20"
-                    Grid.Column="0"/>
+                    Grid.Column="0"
+                    Grid.Row="1"/>
             <!-- Delete Pack Button -->
             <Button Content="Delete Pack"
                     Command="{Binding DeletePackCommand}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Margin="75,270,0,0"
+                    Margin="75,64,0,0"
                     Width="90"
                     Height="20"
-                    Grid.Column="0"/>
+                    Grid.Column="0"
+                    Grid.Row="1"/>
             <!-- Pack Options Expander -->
             <Expander Header="Pack Options"
                       IsExpanded="{Binding IsPackOptionsOpen, Mode=TwoWay}"
                       Grid.Column="0"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Top"
-                      Margin="20,295,0,0">
+                      Margin="65,89,0,0"
+                      Height="106"
+                      Grid.Row="1">
                 <StackPanel>
                     <!-- Edit Pack Button -->
                     <TextBox Text="{Binding SelectedPack.Name, UpdateSourceTrigger=PropertyChanged}"
@@ -186,10 +198,9 @@
             <TextBlock Text="{Binding SelectedPack.Name, StringFormat='Selected Pack: {0}'}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top"
-                       Margin="0,0,0,0"
                        FontSize="24"
                        Grid.Column="1"/>
-            <!-- Question List -->
+            <!-- Question List Box -->
             <ListBox ItemsSource="{Binding SelectedPack.Questions}"
                      SelectedItem="{Binding SelectedQuestion}"
                      DisplayMemberPath="Text"
@@ -197,31 +208,35 @@
                      VerticalAlignment="Top"
                      Grid.Column="1"
                      Width="360"
-                     Height="50"
-                     Margin="0,40,0,0"/>
+                     Height="170"
+                     Margin="0,40,0,0"
+                     Grid.RowSpan="2"/>
             <!-- Edit Question Text -->
             <TextBlock Text="Edit selected question:"
                        Grid.Column="1"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top"
-                       Margin="0,95,0,0"/>
+                       Margin="0,139,0,0"
+                       Grid.Row="1"/>
             <!-- Question Text -->
             <TextBox Text="{Binding SelectedQuestion.Text, UpdateSourceTrigger=PropertyChanged}"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Top"
                      Width="360"
                      Height="30"
-                     Margin="0,120,0,0"
-                     Grid.Column="1"/>
+                     Margin="0,160,0,0"
+                     Grid.Column="1"
+                     Grid.Row="1"/>
             <!-- Answer List -->
             <ListBox ItemsSource="{Binding SelectedQuestion.Answers}"
                      SelectedItem="{Binding SelectedAnswer}"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Top"
-                     Margin="0,160,0,0"
+                     Margin="0,4,0,0"
                      Width="360"
-                     Height="100"
-                     Grid.Column="1">
+                     Height="103"
+                     Grid.Column="1"
+                     Grid.Row="1">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -271,7 +286,8 @@
             <StackPanel Grid.Column="1"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
-                        Margin="0,305,0,0">
+                        Margin="0,195,0,0"
+                        Grid.Row="1">
                 <TextBlock Text="Must be 4 unique answers"
                            TextAlignment="Center"
                            Foreground="Red">
