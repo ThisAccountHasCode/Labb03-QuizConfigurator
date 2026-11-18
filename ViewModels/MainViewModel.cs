@@ -228,23 +228,40 @@ public class MainViewModel : INotifyPropertyChanged
         PlayRequested?.Invoke(SelectedPack);
     }
 
-    private static QuizPack CreateSamplePack()  // This method creates a sample QuizPack with one question and its answers - It will be deleted
+    private static QuizPack CreateSamplePack()  // This method creates a sample QuizPack and its answers - It will be deleted
     {
-        QuizPack samplePack = new() { Name = "Geography" };
-
-        Question question = new()
+        QuizPack samplePack = new()
         {
-            Text = "What is the capital of France?",
-            Difficulty = Difficulty.Easy,
-            Answers =
+            Name = "Geography",
+            Questions =
             [
-                new Answer { Text = "Paris", IsCorrect = true },
-                new Answer { Text = "London", IsCorrect = false },
-                new Answer { Text = "Berlin", IsCorrect = false },
-                new Answer { Text = "Madrid", IsCorrect = false }
+                new Question
+                {
+                    Text = "What is the capital of France?",
+                    Difficulty = Difficulty.Easy,
+                    Answers =
+                    [
+                        new Answer { Text = "Paris", IsCorrect = true },
+                        new Answer { Text = "London", IsCorrect = false },
+                        new Answer { Text = "Berlin", IsCorrect = false },
+                        new Answer { Text = "Madrid", IsCorrect = false }
+                    ]
+                },
+
+                new Question{
+                    Text = "In what country is the capital city named Stockholm?",
+                    Difficulty  = Difficulty.Easy,
+                    Answers =
+                    [
+                        new Answer { Text = "Sweden", IsCorrect = true },
+                        new Answer { Text = "Norway", IsCorrect = false },
+                        new Answer { Text = "Finland", IsCorrect = false },
+                        new Answer { Text = "Estonia", IsCorrect = false }
+                        ]
+                }
             ]
         };
-        samplePack.Questions.Add(question);
+
         return samplePack;
     }
 }
