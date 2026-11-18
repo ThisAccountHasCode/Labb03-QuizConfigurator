@@ -71,8 +71,11 @@ public class PlayViewModel : INotifyPropertyChanged
         {
             _remainingSeconds = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RemainingTimeSeconds)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsTimeRunningLow)));
         }
     }
+
+    public bool IsTimeRunningLow => RemainingTimeSeconds < Pack.TimeLimitSeconds * 0.25;
 
     // Methods
     private void PrepareCurrentAnswersList()

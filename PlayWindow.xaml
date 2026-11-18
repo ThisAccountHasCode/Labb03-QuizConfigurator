@@ -6,7 +6,19 @@
         Width="600">
     <StackPanel Margin="20">
         <TextBlock Text="{Binding QuestionProgress}"/>
-        <TextBlock Text="{Binding RemainingTimeSeconds, StringFormat='Time remaining: {0} seconds'}"/>
+        <TextBlock Text="{Binding RemainingTimeSeconds, StringFormat='Time remaining: {0} seconds'}">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsTimeRunningLow}"
+                                     Value="True">
+                            <Setter Property="Foreground"
+                                    Value="Red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <TextBlock Text="{Binding CurrentQuestion.Text}"
                    FontSize="20"/>
         <ListBox ItemsSource="{Binding CurrentAnswers}"
