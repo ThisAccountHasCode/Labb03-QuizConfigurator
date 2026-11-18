@@ -110,7 +110,6 @@ public class MainViewModel : INotifyPropertyChanged
     private readonly PackStorage _packStorage = new();
 
     // Methods
-
     private void AddQuestion()
     {
         if (SelectedPack == null) { return; }

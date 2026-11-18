@@ -27,6 +27,8 @@ public class Question : INotifyPropertyChanged
         get => _answers;
         set
         {
+            ArgumentNullException.ThrowIfNull(value);
+
             if (_answers != value)
             {
                 foreach (Answer answer in _answers)
@@ -49,6 +51,7 @@ public class Question : INotifyPropertyChanged
             }
         }
     }
+
     public bool HasQuestionText => !string.IsNullOrWhiteSpace(Text);
 
     public Difficulty Difficulty { get; set; } = Difficulty.Easy;

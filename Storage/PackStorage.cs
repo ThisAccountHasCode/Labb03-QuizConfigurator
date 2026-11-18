@@ -40,6 +40,20 @@ public class PackStorage
     {
         await using FileStream stream = File.OpenRead(filePath);
         QuizPack? pack = await JsonSerializer.DeserializeAsync<QuizPack>(stream) ?? throw new JsonException("The file does not contain valid quiz pack data.");
+
+        if (pack.Questions == null)
+        {
+            throw new JsonException("The quiz pack is missing data!");
+        }
+
+        foreach (Question question in pack.Questions)
+        {
+            if (question == null)
+            {
+                throw new JsonException("The question list contains an empty item.");
+            }
+        }
+
         return pack;
     }
 }
