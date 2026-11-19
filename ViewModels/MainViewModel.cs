@@ -247,7 +247,6 @@ public class MainViewModel : INotifyPropertyChanged
                         new Answer { Text = "Madrid", IsCorrect = false }
                     ]
                 },
-
                 new Question{
                     Text = "In what country is the capital city named Stockholm?",
                     Difficulty  = Difficulty.Easy,
@@ -257,7 +256,7 @@ public class MainViewModel : INotifyPropertyChanged
                         new Answer { Text = "Norway", IsCorrect = false },
                         new Answer { Text = "Finland", IsCorrect = false },
                         new Answer { Text = "Estonia", IsCorrect = false }
-                        ]
+                    ]
                 }
             ]
         };
