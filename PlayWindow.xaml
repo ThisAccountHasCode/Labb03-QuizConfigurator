@@ -45,6 +45,24 @@
                 </Style>
             </Image.Style>
         </Image>
+        <Image Width="48"
+               Height="48">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Setter Property="Visibility"
+                            Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding AnswerWasCorrect}"
+                                     Value="False">
+                            <Setter Property="Source"
+                                    Value="/Assets/incorrect.png"/>
+                            <Setter Property="Visibility"
+                                    Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
         <Button Content="Continue / Result"
                 Command="{Binding NextQuestionCommand}"/>
     </StackPanel>
