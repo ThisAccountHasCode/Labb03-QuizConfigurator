@@ -27,6 +27,24 @@
         <Button Content="Submit Answer"
                 Command="{Binding SubmitAnswerCommand}"/>
         <TextBlock Text="{Binding Feedback}"/>
+        <Image Width="48"
+               Height="48">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Setter Property="Visibility"
+                            Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding AnswerWasCorrect}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="/Assets/correct.png"/>
+                            <Setter Property="Visibility"
+                                    Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
         <Button Content="Continue / Result"
                 Command="{Binding NextQuestionCommand}"/>
     </StackPanel>

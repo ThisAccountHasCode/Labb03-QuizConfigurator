@@ -61,6 +61,8 @@ public class PlayViewModel : INotifyPropertyChanged
 
     public bool HasAnswered { get; private set; }
 
+    public bool? AnswerWasCorrect { get; private set; }
+
     public string Feedback { get; private set; } = string.Empty;
 
     private int? _remainingSeconds;
@@ -97,6 +99,8 @@ public class PlayViewModel : INotifyPropertyChanged
 
         HasAnswered = true;
 
+        AnswerWasCorrect = SelectedAnswer.IsCorrect;
+
         if (SelectedAnswer.IsCorrect == true)
         {
             Score++;
@@ -106,6 +110,7 @@ public class PlayViewModel : INotifyPropertyChanged
         Feedback = SelectedAnswer.IsCorrect ? $"Correct! The answer is {correctAnswer.Text}." : $"Incorrect. The correct answer is {correctAnswer.Text}.";
 
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasAnswered)));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerWasCorrect)));
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Score)));
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Feedback)));
     }
@@ -113,6 +118,9 @@ public class PlayViewModel : INotifyPropertyChanged
     private void NextQuestion()
     {
         if (!HasAnswered || CurrentQuestion == null) { return; }
+
+        AnswerWasCorrect = null;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AnswerWasCorrect)));
 
         _questionIndex++;
 
