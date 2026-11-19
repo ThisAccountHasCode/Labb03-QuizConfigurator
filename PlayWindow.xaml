@@ -22,8 +22,38 @@
         <TextBlock Text="{Binding CurrentQuestion.Text}"
                    FontSize="20"/>
         <ListBox ItemsSource="{Binding CurrentAnswers}"
-                 SelectedItem="{Binding SelectedAnswer}"
-                 DisplayMemberPath="Text"/>
+                 SelectedItem="{Binding SelectedAnswer}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Text}"/>
+                        <Image Source="/Assets/correct.png"
+                               Width="16"
+                               Height="16"
+                               Margin="8,0,0,0">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsCorrect}"
+                                                           Value="True"/>
+                                                <Condition Binding="{Binding DataContext.HasAnswered, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                           Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility"
+                                                    Value="Visible"/>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button Content="Submit Answer"
                 Command="{Binding SubmitAnswerCommand}"/>
         <TextBlock Text="{Binding Feedback}"/>
