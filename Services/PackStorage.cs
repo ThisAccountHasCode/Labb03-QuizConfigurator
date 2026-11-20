@@ -2,7 +2,7 @@ using Labb03___Quiz_Configurator.Models;
 using System.IO;
 using System.Text.Json;
 
-namespace Labb03___Quiz_Configurator.Storage;
+namespace Labb03___Quiz_Configurator.Services;
 
 public class PackStorage
 {

@@ -32,6 +32,7 @@
                     Command="{Binding OpenPackCommand}"/>
     </Window.InputBindings>
     <DockPanel>
+        <!--  Pack menu sub-menu -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Quiz _Pack">
                 <MenuItem Header="Op_en Pack"
@@ -50,6 +51,7 @@
                           Command="{Binding SavePackCommand}"
                           InputGestureText="Ctrl+Shift+S"/>
             </MenuItem>
+            <!--  Question menu sub-menu -->
             <MenuItem Header="_Question">
                 <MenuItem Header="_Add Question"
                           Command="{Binding AddQuestionCommand}"
@@ -58,6 +60,8 @@
                           Command="{Binding DeleteQuestionCommand}"
                           InputGestureText="Ctrl+Shift+D"/>
             </MenuItem>
+            <MenuItem Header="_Load trivia categories"
+                      Command="{Binding LoadTriviaCategoriesCommand}"/>
         </Menu>
         <Grid Height="500"
               Width="780">
@@ -69,6 +73,15 @@
                 <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <!--  Trivia categories combo box -->
+            <ComboBox ItemsSource="{Binding TriviaCategories}"
+                      DisplayMemberPath="Name"
+                      Grid.Column="0"
+                      Grid.Row="1"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Margin="20,205,0,0"
+                      Width="180"/>
             <!-- Start game button -->
             <Button Content="Play"
                     Command="{Binding StartGameCommand}"

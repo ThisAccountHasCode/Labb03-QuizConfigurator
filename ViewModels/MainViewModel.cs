@@ -4,7 +4,7 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Labb03___Quiz_Configurator.Models;
-using Labb03___Quiz_Configurator.Storage;
+using Labb03___Quiz_Configurator.Services;
 
 namespace Labb03___Quiz_Configurator.ViewModels;
 
@@ -20,6 +20,7 @@ public class MainViewModel : INotifyPropertyChanged
         SavePackCommand = new AsyncRelayCommand(SavePackAsync);
         OpenPackCommand = new AsyncRelayCommand(OpenPackAsync);
         StartGameCommand = new RelayCommand(StartGame);
+        LoadTriviaCategoriesCommand = new AsyncRelayCommand(LoadTriviaCategoriesAsync);
         DeleteQuestionCommand = new RelayCommand(DeleteQuestion,
         () => SelectedPack != null && SelectedQuestion != null);
 
@@ -40,6 +41,7 @@ public class MainViewModel : INotifyPropertyChanged
     public ICommand OpenPackCommand { get; }
     public ICommand StartGameCommand { get; }
     public RelayCommand DeleteQuestionCommand { get; }
+    public AsyncRelayCommand LoadTriviaCategoriesCommand { get; }
 
     // Events
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -48,6 +50,7 @@ public class MainViewModel : INotifyPropertyChanged
     // Properties
     public QuizPack CurrentPack { get; }
     public ObservableCollection<QuizPack> QuizPacks { get; } = [];
+    public ObservableCollection<TriviaCategory> TriviaCategories { get; } = [];
     public Difficulty[] Difficulties { get; } = Enum.GetValues<Difficulty>();
 
     private QuizPack? _selectedPack;
@@ -111,6 +114,7 @@ public class MainViewModel : INotifyPropertyChanged
     }
 
     private readonly PackStorage _packStorage = new();
+    private readonly TriviaClientApi _triviaClient = new();
 
     // Methods
     private void AddQuestion()
@@ -212,6 +216,25 @@ public class MainViewModel : INotifyPropertyChanged
         catch (Exception ex)
         {
             MessageBox.Show($"Could not open the pack: {ex.Message}");
+        }
+    }
+
+    private async Task LoadTriviaCategoriesAsync()
+    {
+        try
+        {
+            List<TriviaCategory> categories = await _triviaClient.GetCategoriesAsync();
+
+            TriviaCategories.Clear();
+
+            foreach (TriviaCategory category in categories)
+            {
+                TriviaCategories.Add(category);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Could not load trivia categories: {ex.Message}");
         }
     }
 
