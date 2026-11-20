@@ -9,7 +9,7 @@ public class PlayViewModel : INotifyPropertyChanged
 {
     public PlayViewModel(QuizPack pack)
     {
-        SubmitAnswerCommand = new RelayCommand(SubmitAnswer);
+        SubmitAnswerCommand = new RelayCommand(SubmitAnswer, () => CurrentQuestion != null && SelectedAnswer != null && !HasAnswered);
         NextQuestionCommand = new RelayCommand(NextQuestion);
 
         Pack = pack;
@@ -24,7 +24,7 @@ public class PlayViewModel : INotifyPropertyChanged
     }
 
     // Commands
-    public ICommand SubmitAnswerCommand { get; }
+    public RelayCommand SubmitAnswerCommand { get; }
     public ICommand NextQuestionCommand { get; }
 
     // Events
@@ -54,6 +54,7 @@ public class PlayViewModel : INotifyPropertyChanged
         {
             _selectedAnswer = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedAnswer)));
+            SubmitAnswerCommand.RaiseCanExecuteChanged();
         }
     }
 
@@ -98,6 +99,7 @@ public class PlayViewModel : INotifyPropertyChanged
         _questionTimer.Stop();
 
         HasAnswered = true;
+        SubmitAnswerCommand.RaiseCanExecuteChanged();
 
         AnswerWasCorrect = SelectedAnswer.IsCorrect;
 
@@ -141,6 +143,7 @@ public class PlayViewModel : INotifyPropertyChanged
         SelectedAnswer = null;
         HasAnswered = false;
         Feedback = string.Empty;
+        SubmitAnswerCommand.RaiseCanExecuteChanged();
 
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentQuestion)));
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasAnswered)));
@@ -160,6 +163,7 @@ public class PlayViewModel : INotifyPropertyChanged
             {
                 _questionTimer.Stop();
                 HasAnswered = true;
+                SubmitAnswerCommand.RaiseCanExecuteChanged();
 
                 Answer correctAnswer = CurrentAnswers.First(answer => answer.IsCorrect);
                 Feedback = $"Time is up! The correct answer was: {correctAnswer.Text}.";

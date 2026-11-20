@@ -23,6 +23,17 @@
                    FontSize="20"/>
         <ListBox ItemsSource="{Binding CurrentAnswers}"
                  SelectedItem="{Binding SelectedAnswer}">
+            <ListBox.Style>
+                <Style TargetType="ListBox">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasAnswered}"
+                                     Value="True">
+                            <Setter Property="IsEnabled"
+                                    Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Style>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
