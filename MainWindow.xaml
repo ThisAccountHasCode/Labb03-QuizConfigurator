@@ -61,7 +61,9 @@
                           InputGestureText="Ctrl+Shift+D"/>
             </MenuItem>
             <MenuItem Header="_Load trivia categories"
-                      Command="{Binding LoadTriviaCategoriesCommand}"/>
+                      Command="{Binding ImportTriviaCategoriesCommand}"/>
+            <MenuItem Header="_Import trivia questions"
+                      Command="{Binding ImportTriviaQuestionsCommand}"/>
         </Menu>
         <Grid Height="500"
               Width="780">
@@ -75,6 +77,7 @@
             </Grid.ColumnDefinitions>
             <!--  Trivia categories combo box -->
             <ComboBox ItemsSource="{Binding TriviaCategories}"
+                      SelectedItem="{Binding SelectedTriviaCategory, Mode=TwoWay}"
                       DisplayMemberPath="Name"
                       Grid.Column="0"
                       Grid.Row="1"

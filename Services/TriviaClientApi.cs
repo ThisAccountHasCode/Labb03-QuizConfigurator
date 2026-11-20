@@ -15,4 +15,18 @@ public class TriviaClientApi
         ?? throw new JsonException("The category response was empty.");
         return response.Categories;
     }
+
+    public async Task<TriviaQuestionResponse> GetQuestionsAsync(int categoryId, int amount)
+    {
+        string url = $"https://opentdb.com/api.php?amount={amount}&category={categoryId}&type=multiple";
+        string json = await _httpClient.GetStringAsync(url);
+        TriviaQuestionResponse response = JsonSerializer.Deserialize<TriviaQuestionResponse>(json)
+        ?? throw new JsonException("The question response was empty.");
+        if (response.ResponseCode != 0)
+        {
+            throw new InvalidOperationException(
+                $"The trivia API returned error code {response.ResponseCode}.");
+        }
+        return response;
+    }
 }

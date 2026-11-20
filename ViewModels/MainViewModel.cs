@@ -1,5 +1,6 @@
 using Microsoft.Win32;
 using System.Windows;
+using System.Net;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -17,10 +18,11 @@ public class MainViewModel : INotifyPropertyChanged
         DeletePackCommand = new RelayCommand(DeletePack);
         SetCorrectAnswerCommand = new RelayCommand(SetCorrectAnswer);
         TogglePackOptionsCommand = new RelayCommand(TogglePackOptions);
+        StartGameCommand = new RelayCommand(StartGame);
         SavePackCommand = new AsyncRelayCommand(SavePackAsync);
         OpenPackCommand = new AsyncRelayCommand(OpenPackAsync);
-        StartGameCommand = new RelayCommand(StartGame);
-        LoadTriviaCategoriesCommand = new AsyncRelayCommand(LoadTriviaCategoriesAsync);
+        ImportTriviaQuestionsCommand = new AsyncRelayCommand(LoadTriviaQuestionsAsync);
+        ImportTriviaCategoriesCommand = new AsyncRelayCommand(ImportTriviaCategoriesAsync);
         DeleteQuestionCommand = new RelayCommand(DeleteQuestion,
         () => SelectedPack != null && SelectedQuestion != null);
 
@@ -40,8 +42,9 @@ public class MainViewModel : INotifyPropertyChanged
     public ICommand SavePackCommand { get; }
     public ICommand OpenPackCommand { get; }
     public ICommand StartGameCommand { get; }
+    public ICommand ImportTriviaQuestionsCommand { get; }
     public RelayCommand DeleteQuestionCommand { get; }
-    public AsyncRelayCommand LoadTriviaCategoriesCommand { get; }
+    public AsyncRelayCommand ImportTriviaCategoriesCommand { get; }
 
     // Events
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -51,6 +54,7 @@ public class MainViewModel : INotifyPropertyChanged
     public QuizPack CurrentPack { get; }
     public ObservableCollection<QuizPack> QuizPacks { get; } = [];
     public ObservableCollection<TriviaCategory> TriviaCategories { get; } = [];
+    public TriviaCategory? SelectedTriviaCategory { get; set; }
     public Difficulty[] Difficulties { get; } = Enum.GetValues<Difficulty>();
 
     private QuizPack? _selectedPack;
@@ -219,12 +223,11 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    private async Task LoadTriviaCategoriesAsync()
+    private async Task ImportTriviaCategoriesAsync()
     {
         try
         {
             List<TriviaCategory> categories = await _triviaClient.GetCategoriesAsync();
-
             TriviaCategories.Clear();
 
             foreach (TriviaCategory category in categories)
@@ -235,6 +238,52 @@ public class MainViewModel : INotifyPropertyChanged
         catch (Exception ex)
         {
             MessageBox.Show($"Could not load trivia categories: {ex.Message}");
+        }
+    }
+
+    private async Task LoadTriviaQuestionsAsync()
+    {
+        QuizPack? pack = SelectedPack;
+        TriviaCategory? category = SelectedTriviaCategory;
+
+        if (pack == null || category == null)
+        {
+            MessageBox.Show("Select a pack and a trivia category first.");
+            return;
+        }
+
+        try
+        {
+            TriviaQuestionResponse response = await _triviaClient.GetQuestionsAsync(category.Id, 5);
+            foreach (TriviaQuestion triviaQuestion in response.Results)
+            {
+                List<Answer> answers = [];
+                answers.Add(new Answer
+                {
+                    Text = WebUtility.HtmlDecode(triviaQuestion.CorrectAnswer),
+                    IsCorrect = true
+                });
+
+                foreach (string incorrectAnswer in triviaQuestion.IncorrectAnswers)
+                {
+                    answers.Add(new Answer
+                    {
+                        Text = WebUtility.HtmlDecode(incorrectAnswer),
+                        IsCorrect = false
+                    });
+                }
+
+                Question question = new()
+                {
+                    Text = WebUtility.HtmlDecode(triviaQuestion.Question),
+                    Answers = answers,
+                };
+                pack.Questions.Add(question);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Could not load trivia questions: {ex.Message}");
         }
     }
 
