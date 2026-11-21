@@ -55,6 +55,8 @@ public class MainViewModel : INotifyPropertyChanged
     public ObservableCollection<QuizPack> QuizPacks { get; } = [];
     public ObservableCollection<TriviaCategory> TriviaCategories { get; } = [];
     public TriviaCategory? SelectedTriviaCategory { get; set; }
+    public IEnumerable<int> TriviaQuestionCounts { get; } = Enumerable.Range(1, 50);
+    public int TriviaQuestionCount { get; set; } = 5;
     public Difficulty[] Difficulties { get; } = Enum.GetValues<Difficulty>();
 
     private QuizPack? _selectedPack;
@@ -254,7 +256,7 @@ public class MainViewModel : INotifyPropertyChanged
 
         try
         {
-            TriviaQuestionResponse response = await _triviaClient.GetQuestionsAsync(category.Id, 5);
+            TriviaQuestionResponse response = await _triviaClient.GetQuestionsAsync(category.Id, TriviaQuestionCount);
             foreach (TriviaQuestion triviaQuestion in response.Results)
             {
                 List<Answer> answers = [];
