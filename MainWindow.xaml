@@ -95,6 +95,16 @@
                       VerticalAlignment="Top"
                       Margin="30,235,0,0"
                       Width="180"/>
+            <!-- Import questions difficulty selection box -->
+            <ComboBox ItemsSource="{Binding Difficulties}"
+                      SelectedItem="{Binding TriviaDifficulty, Mode=TwoWay}"
+                      ToolTip="Difficulty of imported questions"
+                      Grid.Column="0"
+                      Grid.Row="1"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Margin="30,262,0,0"
+                      Width="180"/>
             <!-- Start game button -->
             <Button Content="Play"
                     Command="{Binding StartGameCommand}"

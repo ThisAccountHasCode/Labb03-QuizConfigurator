@@ -1,6 +1,7 @@
 using Microsoft.Win32;
 using System.Windows;
 using System.Net;
+using System.Net.Http;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -58,6 +59,7 @@ public class MainViewModel : INotifyPropertyChanged
     public IEnumerable<int> TriviaQuestionCounts { get; } = Enumerable.Range(1, 50);
     public int TriviaQuestionCount { get; set; } = 5;
     public Difficulty[] Difficulties { get; } = Enum.GetValues<Difficulty>();
+    public Difficulty TriviaDifficulty { get; set; } = Difficulty.Easy;
 
     private QuizPack? _selectedPack;
     public QuizPack? SelectedPack
@@ -256,7 +258,8 @@ public class MainViewModel : INotifyPropertyChanged
 
         try
         {
-            TriviaQuestionResponse response = await _triviaClient.GetQuestionsAsync(category.Id, TriviaQuestionCount);
+            Difficulty difficulty = TriviaDifficulty;
+            TriviaQuestionResponse response = await _triviaClient.GetQuestionsAsync(category.Id, TriviaQuestionCount, difficulty);
             foreach (TriviaQuestion triviaQuestion in response.Results)
             {
                 List<Answer> answers = [];
@@ -279,9 +282,15 @@ public class MainViewModel : INotifyPropertyChanged
                 {
                     Text = WebUtility.HtmlDecode(triviaQuestion.Question),
                     Answers = answers,
+                    Difficulty = difficulty,
                 };
                 pack.Questions.Add(question);
             }
+            pack.Difficulty = difficulty;
+        }
+        catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.TooManyRequests)
+        {
+            MessageBox.Show("Too many requests. Wait a few seconds and try again.");
         }
         catch (Exception ex)
         {

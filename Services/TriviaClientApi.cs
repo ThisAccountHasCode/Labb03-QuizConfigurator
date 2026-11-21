@@ -16,16 +16,22 @@ public class TriviaClientApi
         return response.Categories;
     }
 
-    public async Task<TriviaQuestionResponse> GetQuestionsAsync(int categoryId, int amount)
+    public async Task<TriviaQuestionResponse> GetQuestionsAsync(int categoryId, int amount, Difficulty difficulty)
     {
-        string url = $"https://opentdb.com/api.php?amount={amount}&category={categoryId}&type=multiple";
+        string url = $"https://opentdb.com/api.php?amount={amount}&category={categoryId}&type=multiple&difficulty={difficulty.ToString().ToLowerInvariant()}";
         string json = await _httpClient.GetStringAsync(url);
         TriviaQuestionResponse response = JsonSerializer.Deserialize<TriviaQuestionResponse>(json)
         ?? throw new JsonException("The question response was empty.");
         if (response.ResponseCode != 0)
         {
-            throw new InvalidOperationException(
-                $"The trivia API returned error code {response.ResponseCode}.");
+            string message = response.ResponseCode switch
+            {
+                1 => "Not enough questions match the selected settings.",
+                5 => "Too many requests. Wait a few seconds and try again.",
+                _ => $"The trivia API returned error code {response.ResponseCode}."
+            };
+
+            throw new InvalidOperationException(message);
         }
         return response;
     }

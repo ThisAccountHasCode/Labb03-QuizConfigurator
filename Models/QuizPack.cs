@@ -16,7 +16,16 @@ public class QuizPack : INotifyPropertyChanged
         }
     }
 
-    public Difficulty Difficulty { get; set; } = Difficulty.Easy;
+    private Difficulty _difficulty = Difficulty.Easy;
+    public Difficulty Difficulty
+    {
+        get => _difficulty;
+        set
+        {
+            _difficulty = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Difficulty)));
+        }
+    }
 
     private int _timeLimitSeconds = 30;
     public int TimeLimitSeconds
